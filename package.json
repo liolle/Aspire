@@ -1,0 +1,21 @@
+{
+  "name": "aspire",
+  "workspaces": [
+    "back",
+    "front"
+  ],
+  "version": "1.0.0",
+  "description": "Aspire, is a model agency app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": " Alex, Bilal, Etienne, Yves",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liolle/Apire/issues"
+  },
+  "homepage": "https://github.com/liolle/Apire#readme"
+  
+}
