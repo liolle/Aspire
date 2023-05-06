@@ -53,6 +53,8 @@ app.use(cors(corsOptions));
 
 //ROUTES//
 
+app.use('/users',require('./routes/users.routes'))
+
 
 app.listen(PORT,() =>{
     let ENV = process.env.ENVIRONNEMENT == 'production' ? 'PRODUCTION':'DEVELOPMENT' 
