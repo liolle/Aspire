@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "npx cross-env ENVIRONNEMENT=development nodemon src/server.ts",
+    "start:prod": "npx cross-env ENVIRONNEMENT=production nodemon src/server.ts",
+    "ts.check": "tsc --project tsconfig.json",
+    "build": "rimraf dist && tsc",
+    "add-build": "git add dist",
+    "deploy": "npm run ts.check && npm run build && npm run add-build"
   },
   "keywords": [],
   "author": "",
