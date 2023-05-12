@@ -7,7 +7,10 @@ import DbConnect from "../utils/dbConnect";
 // import {Session} from "./sessions"
 // import { Tags } from "./tags";
 
+import fetch from 'node-fetch';
+
 import * as Type from "../utils/types";
+import { Session } from "./sessions";
 
 export class User extends DbConnect {
 
@@ -17,103 +20,272 @@ export class User extends DbConnect {
         
     }
 
-    async login(email:string, ){
+    private async get(email:string){
+        let sql_get = `
+        SELECT * FROM ma_users
+        WHERE email = '${email}'
+        `
+        return new Promise<Type.ResponseMsg>((resolve, reject) => {
+            this.connection.query(sql_get, async (err:any, rows:any, fields:any)=>{
+                if (err){
+                    resolve({
+                        status:202,
+                        message:Type.StatusTypes[202],
+                        content: err
+                    })
+                    return 
+                }
+
+                if (rows.length == 0){
+                    resolve({
+                        status:201,
+                        message:Type.StatusTypes[201],
+                        content: email
+                    })
+                    return
+                }
+
+
+                resolve({
+                    status:100,
+                    message:Type.StatusTypes[100],
+                    content: {}
+                })
+            })
+        })
+    }
+
+
+    private async add(email:string){
+        let sql_get = `
+        INSERT INTO ma_users (email)
+        VALUES ('${email}')
+        `
+        return new Promise<Type.ResponseMsg>((resolve, reject) => {
+            this.connection.query(sql_get, async (err:any, rows:any, fields:any)=>{
+                if (err){
+                    
+                    if(err.code == 'ER_DUP_ENTRY'){
+                        resolve({
+                            status:200,
+                            message:Type.StatusTypes[200],
+                            content: email
+                        })
+                        return 
+                    }
+
+                    resolve({
+                        status:202,
+                        message:Type.StatusTypes[202],
+                        content: err
+                    })
+                    return 
+                }
+
+                if (rows.length == 0){
+                    resolve({
+                        status:201,
+                        message:Type.StatusTypes[201],
+                        content: email
+                    })
+                    return
+                }
+
+
+                resolve({
+                    status:100,
+                    message:Type.StatusTypes[100],
+                    content: {}
+                })
+            })
+        })
+    }
+
+
+    async login(in_email:string, in_token:string ){
+
+        
+        return new Promise<Type.ResponseMsg>(async (resolve, reject) => {
+            
+            let get_response = await this.get(in_email)
+    
+            if (get_response.status != 100){
+                resolve({
+                    status:get_response.status,
+                    message:get_response.message,
+                    content: in_email
+                })
+                return
+            }
+            let options = {method: 'POST'}
+            let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=email%2Cname&access_token=${in_token}`)
+            let data = await resp.json()
+
+            let {error,email,name,id} = data
+
+            if (!!error){
+                resolve({
+                    status:401,
+                    message:Type.StatusTypes[401],
+                    content: error["message"]
+                })
+                return
+            }
+
+            if (in_email != email){
+                resolve({
+                    status:401,
+                    message:Type.StatusTypes[401],
+                    content: in_email
+                })
+                return 
+            }
+
+
+            // console.log(`https://graph.facebook.com/v16.0/me&access_token=${token}`);
+
+            
+
+            let session = new Session()
+            let response = await session.addSession(in_email,in_token)
+
+            if (response.status != 100){
+                resolve(
+                    {
+                        status:response.status,
+                        message:response.message,
+                        content: response.content
+                    }
+                )
+                session.close()
+                return
+            }
+
+            response = await session.getSession(in_email)
+
+            if (response.status != 100){
+                resolve(
+                    {
+                        status:response.status,
+                        message:response.message,
+                        content: response.content
+                    }
+                )
+                session.close()
+                return
+            }
+
+            console.log(email);
+            console.log(response.content.session_id);
+            
+            
+
+            session.close()
+
+            
+
+            resolve({
+                status:100,
+                message:Type.StatusTypes[100],
+                content: {session_id: response.content.session_id}
+            })
+
+            // Create a session using email and token 
+        })
+        
+    }
+    
+    async register(in_email:string, in_token:string ){
 
         return new Promise<Type.ResponseMsg>(async (resolve, reject) => {
 
-            // let session = new Session()
-            // let dbUser = await this.getUser(email)
+            let options = {method: 'POST'}
+            let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=email%2Cname&access_token=${in_token}`)
+            let data = await resp.json()
 
-            // if (dbUser.status != 100){
-            //     resolve({
-            //         status:dbUser.status,
-            //         message:dbUser.message,
-            //         content: dbUser.content
-            //     })
-            //     return
-            // }
+            let {error,email,name,id} = data
 
-            // let {id,pwd} = dbUser.content as {
-            //     id:number,
-            //     pwd:string
-            // }
+            if (!!error){
+                resolve({
+                    status:401,
+                    message:Type.StatusTypes[401],
+                    content: error["message"]
+                })
+                return
+            }
 
-            // if (!bcrypt.compareSync(in_pwd,pwd)){
-            //     resolve({
-            //         status:401,
-            //         message:Type.StatusTypes[401],
-            //         content: {}
-            //     })
-            //     return
-            // }
+            if (in_email != email){
+                resolve({
+                    status:401,
+                    message:Type.StatusTypes[401],
+                    content: in_email
+                })
+                return 
+            }
 
-            // let resSession = await session.getSession(id) 
+            let get_response = await this.add(in_email)
+    
+            if (get_response.status != 100){
+                resolve({
+                    status:get_response.status,
+                    message:get_response.message,
+                    content: get_response.content
+                })
+                return
+            }
 
-            // let delSession = await session.deleteSession(id)
-           
 
-            // resSession = await session.addSession(id)
-            // session.close()
-            // if ( resSession.status != 100){
-            //     resolve({
-            //         status:202,
-            //         message:Type.StatusTypes[202],
-            //         content: resSession.content
-            //     })
-            //     return
-            // }
-            // console.log(resSession);
+            resolve({
+                status:100,
+                message:Type.StatusTypes[100],
+                content: {}
+            })
             
-            // resSession = await session.getUId(id) 
-            
-            // let content = resSession.content as [{
-            //     id:number,
-            //     user_id:number,
-            //     tag:string
-            // }]
 
-            // console.log(resSession);
-            
-            
-            // resolve({
-            //     status:100,
-            //     message:Type.StatusTypes[100],
-            //     content: {
-            //         hashedPWD:pwd,
-            //         user_id:id,
-            //         user_tag:content[0]['tag'],
-            //         session_id: content[0]['id']
-            //     }
-            // })
+            // Create a session using email and token 
         })
         
     }
 
     //logout based on JWT
-    async logout(email:string){
+    async logout(in_email:string){
 
         return new Promise<Type.ResponseMsg>(async (resolve, reject) => {
-            // let session = new Session()
 
-            // let resSession = await session.deleteSession(user_id)
-            // session.close()
-            // if ( resSession.status != 100){
-            //     resolve({
-            //         status:202,
-            //         message:Type.StatusTypes[202],
-            //         content: resSession.content
-            //     })
-            //     return
-            // }
+            let session = new Session()
+
+            // let response = await session.getSession(in_email)
+
+            // console.log(response);
             
-            // resolve({
-            //     status:100,
-            //     message:Type.StatusTypes[100],
-            //     content: {}
-            // })
+            // let {token} = response.content
+
+            let response = await session.deleteSession(in_email)
+
+            if (response.status != 100){
+                resolve(
+                    {
+                        status:response.status,
+                        message:response.message,
+                        content: response.content
+                    }
+                )
+                session.close()
+                return
+            }
+
+
+
+            session.close()
+
+            resolve({
+                status:100,
+                message:Type.StatusTypes[100],
+                content: {}
+            })
+
         })
 
     }
-
 
 }

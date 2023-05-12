@@ -12,6 +12,8 @@ abstract class DbConnect {
     this.connection = mysql.createConnection(connectString);
   }
 
+
+
   close() {
     setTimeout(()=>{
       this.connection.end();
