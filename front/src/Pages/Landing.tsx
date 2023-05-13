@@ -1,5 +1,5 @@
 import React from'react-router-dom'
-import NavBar from "../Components/Nav/NavBar"
+import NavBar from "../Components/Nav/NavB"
 import model11 from '../Images/model11.jpg'
 
 import model8 from '../Images/model8.jpg'
@@ -10,10 +10,14 @@ import model4 from '../Images/model4.jpg'
 import Footer from '../Components/Footer/Footer'
 import FAQ from '../Components/FAQ/Faq'
 import Team from '../Components/Team/Team'
+import { useState } from 'react'
+import LoginPopup from '../Components/login/popUpLog'
 
 
 
  const ModelPage = () => {
+  const [oppenPopup, setOppenPopup] = useState(false)
+  
     const backgroundImageStyle1 = {
         backgroundImage: `url("${model11}")`,
       };
@@ -41,24 +45,32 @@ import Team from '../Components/Team/Team'
 
 
     return (
-    <>
-        <div className=''> <NavBar/></div>
-        <section className="w-full flex gap-4 h-full  mb-0" style={backgroundImageStyle0}>
+      <div className=' flex flex-col h-screen'>
+
+        {
+            oppenPopup && <div onClick={()=>setOppenPopup(false)}
+            className=" absolute w-full h-screen 
+            flex justify-center items-center">
+                <LoginPopup setOppenPopup={setOppenPopup}/>
+            </div>
+        }
+        
+        <NavBar setOppenPopup={setOppenPopup}/>
+        <div className=' flex-1 bg-cover ' style={backgroundImageStyle0}>
+
+        </div>
+        
+        {/* <section className="w-full flex gap-4 h-full  mb-0 bg-cover" style={backgroundImageStyle0}>
           <div className="flex-grow-1 w-2/5  ml-16 mt">
            <div className="font-sans font-bold text-center mt-28 text-6xl italic text-slate-950"> <h1> The Aspire Models</h1> </div>
            <div className="font-sans font-bold text-center  mt-12  ml-12 text-5xl italic text-slate-700"> <h2>  Aspire to greatness!</h2></div>
-           <div className="font-sans  text-center text-2xl ml-12 mt-16 italic text-white"><p>Aspire Models is the modeling agency that inspires ordinary people to pursue their dream of becoming a model. We provide tools and resources to help beginners achieve their goals and become role models in the industry.</p></div>
-          
+
+           <div className="font-sans  text-center text-2xl ml-12 mt-16 italic text-white">
+            <p>Aspire Models is the modeling agency that inspires ordinary people to pursue their dream of becoming a model. We provide tools and resources to help beginners achieve their goals and become role models in the industry.</p>
+            </div>
          
-          
-          
-          
             <button className='w-52 h-14 border-2 mt-20 border-2 rounded-full border-slate ms-12 ms-72 bg-fuchsia-500 text-xl text-slate'>Try it now </button>
                
-           
-
-
-      
           
           </div>
        
@@ -83,21 +95,6 @@ import Team from '../Components/Team/Team'
               
            </section>    
 
-
-
-
-           
-          
-         
-          
-          
-          
-          
-               
-           
-
-
-      
           
           </div>
          <div className="flex-1 ml-0 ">
@@ -146,33 +143,11 @@ import Team from '../Components/Team/Team'
          <FAQ/>
 
          <div className=''><Footer/></div>
-       </section>
-
-      
-          
-     
-      
-       
-    
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
+       </section> */}
 
 
-
-
-        </>
-
-
+      </div>
     )
-
 }
 
 export default ModelPage

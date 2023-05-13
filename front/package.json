@@ -9,10 +9,10 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  
   "devDependencies": {
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.2.6",
     "@types/react-dom": "^18.0.11",
+    "@types/react-icons": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.0",
@@ -31,10 +31,12 @@
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@heroicons/react": "^2.0.17",
+    "@reduxjs/toolkit": "^1.9.5",
     "framer-motion": "^10.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.0",
     "tailwind-styled-components": "^2.2.0"
   }

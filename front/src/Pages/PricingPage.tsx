@@ -1,7 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { HiCheck } from 'react-icons/hi';
-import NavBar from '../Components/Nav/NavBar';
+import NavBar from '../Components/Nav/NavB';
+import { useState } from 'react'
+import LoginPopup from '../Components/login/popUpLog';
 
 type PriceCardProps = {
   title: string;
@@ -9,7 +10,7 @@ type PriceCardProps = {
   features: string[];
 };
 
-const PriceCard: React.FC<PriceCardProps> = ({ title, price, features }:PriceCardProps) => {
+const PriceCard = ({ title, price, features }:PriceCardProps) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
       <div className="px-6 py-4">
@@ -35,7 +36,8 @@ const PriceCard: React.FC<PriceCardProps> = ({ title, price, features }:PriceCar
   );
 };
 
-const PricingPage: React.FC = () => {
+const PricingPage = () => {
+  const [oppenPopup, setOppenPopup] = useState(false)
   const packages = [
     {
       title: 'Basic',
@@ -60,20 +62,28 @@ const PricingPage: React.FC = () => {
   ];
 
   return (
-    <>
-    <div className=''> <NavBar/></div>
+    <div>
 
-      
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      
-      <h1 className="text-9xl font-bold text-gray-900 mb-8 mt-10">Pricing</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {packages.map(({ title, price, features }) => (
-          <PriceCard key={title} title={title} price={price} features={features} />
-        ))}
+      {
+          oppenPopup && <div onClick={()=>setOppenPopup(false)}
+          className=" absolute w-full h-screen 
+          flex justify-center items-center">
+              <LoginPopup setOppenPopup={setOppenPopup}/>
+          </div>
+      }
+      <NavBar setOppenPopup={setOppenPopup}/>
+        
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        
+        <h1 className="text-9xl font-bold text-gray-900 mb-8 mt-10">Pricing</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {packages.map(({ title, price, features }) => (
+            <PriceCard key={title} title={title} price={price} features={features} />
+          ))}
+        </div>
       </div>
     </div>
-    </>
+    
   );
 };
 

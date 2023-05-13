@@ -6,7 +6,7 @@ import Alex from "../../Images/Alex.jpg"
 
 
 
-const Team: React.FC = () => {
+const Team = () => {
 
   const backgroundImageStyle0 = {
     backgroundImage: `url("${bilal}")`,
