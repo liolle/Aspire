@@ -9,6 +9,16 @@ const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetState
 
     const closePopup = ()=>{
         if (!setOppenPopup) return
+
+        const section1 = document.querySelector("#sec1") as HTMLElement
+        const section2 = document.querySelector("#sec2") as HTMLElement
+        const section3 = document.querySelector("#sec3") as HTMLElement
+        const section4 = document.querySelector("#sec4") as HTMLElement
+        if(section1){section1.classList.remove("hidden")}
+        if(section2){section2.classList.remove("hidden")}
+        if(section3){section3.classList.remove("hidden")}
+        if(section4){section4.classList.remove("hidden")}
+
         setOppenPopup(false)
     }
 
@@ -16,7 +26,7 @@ const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetState
     return (
         <div  
         onClick={(e)=>e.stopPropagation()}
-        className=" relative  rounded-xl bg-wht  
+        className=" relative rounded-xl bg-wht
         flex flex-col justify-center items-center p-6 gap-4 ">
 
             <div onClick={()=>closePopup()}
@@ -30,7 +40,7 @@ const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetState
 
             <div className=" flex flex-col gap-2 justify-center items-center">
                 <span className=" font-medium text-blk-300 text-xl"> Welcome back</span>
-                <span className=" font-light text-blk-100">Please enter your details to log in.</span>
+                <span className=" font-light text-blk-100">Enter your details to log in.</span>
             </div>
 
             <div className=" flex gap-4

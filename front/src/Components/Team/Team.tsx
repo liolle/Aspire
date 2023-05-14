@@ -28,10 +28,10 @@ const Team = () => {
   
  
   return (
-    <div className="flex flex-wrap -mx-4">
-      <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative pb-48 overflow-hidden"style={backgroundImageStyle3}>
+    <div className="flex flex-wrap justify-center gap-6 ">
+      <div className=" h-[30rem] w-[30rem] rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-white rounded-lg  ">
+          <div className="relative pb-[300px] bg-cover bg-center "style={backgroundImageStyle3}>
             
           </div>
           <div className="p-4">
@@ -43,9 +43,9 @@ const Team = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative pb-48 overflow-hidden"style={backgroundImageStyle0}>
+      <div className=" flex h-[30rem] w-[30rem] rounded-xl overflow-hidden shadow-lg">
+        <div className="  bg-white rounded-lg  ">
+          <div className="relative pb-[300px] bg-cover bg-center "style={backgroundImageStyle0}>
            
           </div>
           <div className="p-4">
@@ -57,9 +57,9 @@ const Team = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative pb-48 overflow-hidden"style={backgroundImageStyle2}>
+      <div className=" flex h-[30rem] w-[30rem] rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-white rounded-lg  ">
+          <div className="relative pb-[300px] bg-cover bg-center "style={backgroundImageStyle2}>
            
           </div>
           <div className="p-4">
@@ -71,9 +71,9 @@ const Team = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative pb-48 overflow-hidden"style={backgroundImageStyle1}>
+      <div className=" flex h-[30rem] w-[30rem] rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-white rounded-lg  ">
+          <div className="relative pb-[300px] bg-cover bg-center "style={backgroundImageStyle1}>
             
           </div>
           <div className="p-4">

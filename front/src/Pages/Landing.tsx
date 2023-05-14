@@ -12,6 +12,8 @@ import FAQ from '../Components/FAQ/Faq'
 import Team from '../Components/Team/Team'
 import { useState } from 'react'
 import LoginPopup from '../Components/login/popUpLog'
+import MenuSlider from '../Components/Nav/MenuSlider'
+import SCard from '../Components/sliders/cardSlide'
 
 
 
@@ -41,113 +43,127 @@ import LoginPopup from '../Components/login/popUpLog'
         backgroundImage: `url("${model4}")`,
       };
       
-      
+      const closePopup = ()=>{
+
+        const section1 = document.querySelector("#sec1") as HTMLElement
+            const section2 = document.querySelector("#sec2") as HTMLElement
+            const section3 = document.querySelector("#sec3") as HTMLElement
+            const section4 = document.querySelector("#sec4") as HTMLElement
+            if(section1){section1.classList.remove("hidden")}
+            if(section2){section2.classList.remove("hidden")}
+            if(section3){section3.classList.remove("hidden")}
+            if(section4){section4.classList.remove("hidden")}
+
+        setOppenPopup(false)
+      }
 
 
     return (
-      <div className=' flex flex-col h-screen'>
+      <div  className=' bg-neutral-100'>
+        
+        <section id='sec0' className=' flex flex-col h-screen sticky '>
 
-        {
-            oppenPopup && <div onClick={()=>setOppenPopup(false)}
-            className=" absolute w-full h-screen 
-            flex justify-center items-center">
-                <LoginPopup setOppenPopup={setOppenPopup}/>
+          {
+              oppenPopup && <div onClick={()=>closePopup()}
+              className=" absolute w-full h-screen 
+              flex justify-center items-center bg-[#25252550] overflow-hidden ">
+                  <LoginPopup setOppenPopup={setOppenPopup}/>
+              </div>
+          }
+          
+          <NavBar setOppenPopup={setOppenPopup}/>
+          <MenuSlider/>
+          <div className=' flex flex-1 bg-cover bg-center' style={backgroundImageStyle0}>
+            <div className='flex-1'>
+
             </div>
-        }
-        
-        <NavBar setOppenPopup={setOppenPopup}/>
-        <div className=' flex-1 bg-cover ' style={backgroundImageStyle0}>
+            <div className=' flex flex-col flex-1 justify-center items-center'>
+              <div className=' flex-1 flex max-w-[600px]'>
 
-        </div>
-        
-        {/* <section className="w-full flex gap-4 h-full  mb-0 bg-cover" style={backgroundImageStyle0}>
-          <div className="flex-grow-1 w-2/5  ml-16 mt">
-           <div className="font-sans font-bold text-center mt-28 text-6xl italic text-slate-950"> <h1> The Aspire Models</h1> </div>
-           <div className="font-sans font-bold text-center  mt-12  ml-12 text-5xl italic text-slate-700"> <h2>  Aspire to greatness!</h2></div>
+                <div className='flex flex-col flex-1 
+                justify-between items-center py-4'>
+                  <div className="font-sans font-bold text-center 
+                  text-2xl lg:text-4xl italic text-blk-200 p-4"> 
+                    <h1> Aspire to greatness </h1> 
+                  </div>
+                  <div className='text-lg lg:text-2xl italic p-2 font-semibold '>
+                    <p>Aspire Models is the modeling agency that inspires
+                      ordinary people to pursue their dream of becoming 
+                      a model. We provide tools and resources to help 
+                      beginners achieve their goals and become role 
+                      models in the industry.</p>
 
-           <div className="font-sans  text-center text-2xl ml-12 mt-16 italic text-white">
-            <p>Aspire Models is the modeling agency that inspires ordinary people to pursue their dream of becoming a model. We provide tools and resources to help beginners achieve their goals and become role models in the industry.</p>
+                  </div>
+                  <button className='w-52 h-14  border-2 
+                  rounded-full border-slate  
+                  bg-fuchsia-500 text-xl text-slate'>
+                    Try it now 
+                  </button>
+                </div>
+              </div>
+              <div className='flex-[0_1_40%]'>
+                
+              </div>
             </div>
-         
-            <button className='w-52 h-14 border-2 mt-20 border-2 rounded-full border-slate ms-12 ms-72 bg-fuchsia-500 text-xl text-slate'>Try it now </button>
-               
-          
+            
           </div>
-       
-        
-       </section>
+        </section>
 
+        <section id='sec1' className=" flex justify-center p-4 ">
+          <div className=' flex gap-1 w-[50rem]'>
 
-       <section className="w-full flex gap-4 h-full   bg-gray-100 ">
-          <div className="flex-grow-1   ml-16 mt">
-
-          <section className="w-full h-2/4 flex gap-2  mt-28 ml-12 justify-center ms-2 ">
-                <div className=" w-32 border-2 border-gray-300 shadow-lg bg-cover bg-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-x-150 hover:origin-left hover:w-48 hover:z-50 flex  items-end text-black text-4xl 
- "style={backgroundImageStyle1} > <span className='rotate-90 mb-12 ms-10 font-bold '>Inspire</span></div>
-                <div className=" w-32 border-2 border-gray-300 shadow-lg bg-cover bg-center  rounded-3xl transition duration-300 ease-in-out transform hover:scale-x-150 hover:origin-left hover:w-48  hover:z-50 flex  items-end text-black text-4xl 
-" style={backgroundImageStyle2}><span className='rotate-90 mb-8 ms-14 font-bold'>Style</span></div>
-                <div className=" w-32 border-2 border-gray-300 shadow-lg bg-cover bg-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-x-150 hover:origin-left hover:w-48  hover:z-50 flex items-end text-black text-4xl 
-" style={backgroundImageStyle3}><span className='rotate-90 mb-20 ms-2 font-bold '>Confidence</span></div>
-               <div className=" w-32 border-2 border-gray-300 shadow-lg bg-cover bg-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-x-150 hover:origin-left hover:w-48 hover:z-50 flex items-end text-black text-4xl 
-" style={backgroundImageStyle4}><span className='rotate-90 mb-16 ms-8 font-bold'>Glamour</span></div>
- <div className=" w-32 border-2 border-gray-300 shadow-lg bg-cover bg-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-x-150 hover:origin-left hover:w-48  hover:z-50 flex items-end text-black text-4xl 
-" style={backgroundImageStyle5}><span className='rotate-90 mb-20 ms-8 font-bold '>Selflove</span></div>
-              
-           </section>    
-
-          
+            <SCard bg={backgroundImageStyle1} title='Inspire'/>
+            <SCard bg={backgroundImageStyle2} title='Style'/>
+            <SCard bg={backgroundImageStyle3} title='Confidence'/>
+            <SCard bg={backgroundImageStyle4} title='Glamour'/>  
           </div>
-         <div className="flex-1 ml-0 ">
-           
-         <div className="font-sans font-bold text-center mt-28 text-4xl italic text-slate-950"> <h1> "Ordinary people achieving extraordinary things"</h1> </div>
-         <div className="container mx-4 my-4 ">
-  <div className="grid grid-cols-2 gap-8 ml-16 ">
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-2/3 ">
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl text-green-500 mb-2">Step 1</div>
-        <p className="text-gray-700 text-base">Sign up with a reputable modeling agency to maximize your chances of finding work as a photo model.</p>
-      </div>
-    </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-2/3">
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl text-cyan-500 mb-2">Step 2</div>
-        <p className="text-gray-700 text-base">Develop your portfolio of professional photos by working with experienced photographers and stylists.</p>
-      </div>
-    </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-2/3">
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2 text-blue-500">Step 3</div>
-        <p className="text-gray-700 text-base">Attend auditions and castings for modeling jobs, making sure to present your best work and be well prepared for each opportunity.</p>
-      </div>
-    </div>
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden w-2/3">
-      <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2 text-pink-600">Step 4</div>
-        <p className="text-gray-700 text-base">Work hard to perfect your craft by learning new posing techniques, working on your appearance, and staying fit and healthy.</p>
-      </div>
-    </div>
-  </div>
-</div>
+          
+        </section>  
 
-          
-          
+        <section id='sec2' className='  '>
+          <div className=" flex flex-col items-center gap-4 p-4 md:flex-row flex-wrap justify-center ">
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden h-[10rem] w-[20rem] ">
+              <div className="p-2">
+                <div className="font-bold text-xl text-green-500 ">Step 1</div>
+                <p className="text-gray-700 text-base">Sign up with a reputable modeling agency to maximize your chances of finding work as a photo model.</p>
+              </div>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden h-[10rem] w-[20rem]">
+              <div className="p-2">
+                <div className="font-bold text-xl text-cyan-500 ">Step 2</div>
+                <p className="text-gray-700 text-base">Develop your portfolio of professional photos by working with experienced photographers and stylists.</p>
+              </div>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden h-[10rem] w-[20rem]">
+              <div className="p-2">
+                <div className="font-bold text-xl  text-blue-500">Step 3</div>
+                <p className="text-gray-700 text-base">Attend auditions and castings for modeling jobs, making sure to present your best work and be well prepared for each opportunity.</p>
+              </div>
+            </div>
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden h-[10rem] w-[20rem]">
+              <div className="p-2">
+                <div className="font-bold text-xl  text-pink-600">Step 4</div>
+                <p className="text-gray-700 text-base">Work hard to perfect your craft by learning new posing techniques, working on your appearance, and staying fit and healthy.</p>
+              </div>
+            </div>
           </div>
-        
-       </section>
-       <section className='bg-gray-100'>
-       <div className="font-sans font-bold text-center  text-4xl italic text-slate-950"><h2>Our Team </h2></div>
-       <div className='ml-8 mr-8 mt-8'><Team/></div>
-       </section>
-       <section className="bg-gray-100">
+        </section>
 
-         <FAQ/>
+        <section id='sec3' className=' flex flex-col'>
+          <div className="font-sans font-bold text-center  text-4xl italic text-slate-950"><h2>Our Team </h2></div>
+          <div className='ml-8 mr-8 mt-8'>
+            <Team/>
+          </div>
+        </section>
 
-         <div className=''><Footer/></div>
-       </section> */}
-
-
+        <section id='sec4' className="">
+          <FAQ/>
+          <div className=''><Footer/></div>
+        </section>
       </div>
     )
 }
+
+
 
 export default ModelPage
