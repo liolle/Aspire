@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit' 
 
 export const connectSlice = createSlice({
   name: 'connectionStatus',
@@ -7,7 +7,10 @@ export const connectSlice = createSlice({
   },
   reducers: {
     connect: state => {state.value = true},
-    disconnect: state => {state.value = false}
+    disconnect: state => {
+      localStorage.setItem("ASP_AT","")
+      state.value = false
+    }
   }
 })
 

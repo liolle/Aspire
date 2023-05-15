@@ -16,6 +16,8 @@ import MenuSlider from "./MenuSlider";
 const NavBar = ( {setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetStateAction<boolean>>|undefined})=>{
 
     const navigate = useNavigate()
+    //@ts-ignore
+    const connected = useSelector(state => state.connectStatus.value)
 
     const oppenLogin = ()=>{
         if(setOppenPopup != undefined){
@@ -93,15 +95,25 @@ const Navigation = ()=>{
     const navigation = useNavigate()
 
     //@ts-ignore
-    const count = useSelector(state => state.counter.value)
+    const connected = useSelector(state => state.connectStatus.value)
     const dispatch = useDispatch()
 
     return (
 
         <div className=" hidden md:flex gap-4 py-2 px-4 ">
             <span onClick={()=>navigation("/pricing")}
-            className=" hover:cursor-pointer hover:text-orange hover:border-orange border-b-2 border-blk-200 "> Pricing </span>
+            className=" hover:cursor-pointer hover:text-orange hover:border-orange border-b-2 border-blk-200 "> 
+                Pricing 
+            </span>
+            {
+                connected &&<span onClick={()=>navigation("/profiles")}
+                className=" hover:cursor-pointer hover:text-orange hover:border-orange border-b-2 border-blk-200 "> 
+                    profiles 
+                </span>
+
+            }
         </div>
+
     )
 
 }

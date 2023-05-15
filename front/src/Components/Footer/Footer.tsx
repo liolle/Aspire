@@ -47,15 +47,15 @@ const Phone = tw.a`
 const Footer: React.FC = () => {
   return (
     <Container>
-      <SocialIcons>
+      <SocialIcons >
         <IconLink href="https://www.facebook.com/">
-          <FaFacebook color="#3B5998" size={20} />
+          <FaFacebook color="#3B5998" size={30} />
         </IconLink>
         <IconLink href="https://twitter.com/">
-          <FaTwitter color="#1DA1F2" size={20} />
+          <FaTwitter color="#1DA1F2" size={30} />
         </IconLink>
         <IconLink href="https://www.instagram.com/">
-          <FaInstagram color="#E1306C" size={20} />
+          <FaInstagram color="#E1306C" size={30} />
         </IconLink>
       </SocialIcons>
       <ContactInfo>

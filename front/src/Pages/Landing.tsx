@@ -61,7 +61,7 @@ import SCard from '../Components/sliders/cardSlide'
     return (
       <div  className=' bg-neutral-100'>
         
-        <section id='sec0' className=' flex flex-col h-screen sticky '>
+        <section id='sec0' className=' flex flex-col h-screen '>
 
           {
               oppenPopup && <div onClick={()=>closePopup()}

@@ -27,3 +27,25 @@ export type ResponseMsg = {
     message: string,
     content: any
 }
+
+/* FBLogin */
+
+export interface FBLoginInfo  {
+    id:string,
+    name:string,
+    email:string,
+    picture:{
+        data:{
+            url: string,
+        }
+    }
+}
+
+export interface FBError {
+    error:{
+        message: string,
+        type: string,
+        code: number,
+        fbtrace_id : string
+    }
+}

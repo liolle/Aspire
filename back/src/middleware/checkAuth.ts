@@ -4,12 +4,12 @@ import * as Type from "../utils/types";
 import { verifyJWT } from "../utils/token";
 import { Session } from "../models/sessions";
 
-const unwrapCookies =async (req: Request, res: Response, next: NextFunction) => {
-  const {ASP_AT} = req.cookies;
+const checkAuth =async (req: Request, res: Response, next: NextFunction) => {
+  // const {ASP_AT} = req.cookies;
 
+  const authorizationHeader = req.headers.authorization;
   
-  if (!ASP_AT) {
-    console.log("no token");
+  if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
     res.status(400).json(
         {
             status:203,
@@ -19,6 +19,21 @@ const unwrapCookies =async (req: Request, res: Response, next: NextFunction) => 
     )
     return;
   }
+
+  const ASP_AT = authorizationHeader.split(' ')[1];
+
+  // if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
+  //   const token = authorizationHeader.split(' ')[1];
+
+  //   try {
+  //     const decoded = jwt.verify(token, 'your_secret_key');
+  //     // Access the decoded token and perform necessary operations
+  //     req.user = decoded;
+  //   } catch (err) {
+  //     // Handle JWT verification error
+  //     return res.status(401).json({ error: 'Invalid token' });
+  //   }
+  // }
   
 
 //   const token = authHeader.split(" ")[1];
@@ -45,12 +60,11 @@ const unwrapCookies =async (req: Request, res: Response, next: NextFunction) => 
   req.params.session_id = `${payload.session_id}`
   req.params.email = `${payload.email}`
 
-//   console.log(payload);
   next();
 
 };
 
-export default unwrapCookies;
+export default checkAuth;
 
 
 

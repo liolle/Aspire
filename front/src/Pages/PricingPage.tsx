@@ -65,7 +65,7 @@ const PricingPage = () => {
   ];
 
   return (
-    <div className=' flex flex-col md:h-screen'>
+    <div className=' flex flex-col h-screen'>
 
       {
           oppenPopup && <div onClick={()=>setOppenPopup(false)}
@@ -76,7 +76,7 @@ const PricingPage = () => {
       }
       <NavBar setOppenPopup={setOppenPopup}/>
       <MenuSlider/>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex flex-col items-center justify-center  bg-gray-100">
         
         <h1 className="text-6xl font-bold text-gray-900 mb-8 mt-10 select-none">Pricing</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

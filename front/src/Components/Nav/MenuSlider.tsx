@@ -33,6 +33,23 @@ const MenuSlider = ()=>{
         }
     }
 
+    const FBDisconnect = async ()=>{
+        let option = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'Content-Type': 'application/json',
+            },
+        } 
+    
+        //@ts-ignore
+        let response = await fetch(`${import.meta.env.VITE_HOST}/users/logout`,option)
+        let data = await response.json() as { status: number, message: string, content: any }
+    
+        data.status == 100 && Logout()
+        
+    }
+
     const openMenu = ()=>{
         const element = document.querySelector("#mb-bugger-menu")
         if (element){
@@ -51,13 +68,11 @@ const MenuSlider = ()=>{
     const Login = ()=>{
         dispatch(connect())
         closeMenu("/")
-        console.log("Login ...")
     }
 
     const Logout = ()=>{
         dispatch(disconnect())
         closeMenu("/")
-        console.log("Logout ...")
     }
 
     return (
@@ -94,7 +109,7 @@ const MenuSlider = ()=>{
                 text-xl text-blk-300 justify-center">
                     {/* <GoogleButton/> */}
                     {
-                        connected && <button onClick={()=>Logout()}
+                        connected && <button onClick={()=>FBDisconnect()}
                         className="flex gap-2 items-center 
                         justify-center w-[10rem]
                         border-[1px] rounded-md px-4 py-2 

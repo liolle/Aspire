@@ -28,6 +28,7 @@ export class User extends DbConnect {
         return new Promise<Type.ResponseMsg>((resolve, reject) => {
             this.connection.query(sql_get, async (err:any, rows:any, fields:any)=>{
                 if (err){
+                    
                     resolve({
                         status:202,
                         message:Type.StatusTypes[202],
@@ -37,6 +38,7 @@ export class User extends DbConnect {
                 }
 
                 if (rows.length == 0){
+                    
                     resolve({
                         status:201,
                         message:Type.StatusTypes[201],
@@ -83,6 +85,7 @@ export class User extends DbConnect {
                 }
 
                 if (rows.length == 0){
+                    
                     resolve({
                         status:201,
                         message:Type.StatusTypes[201],
@@ -108,7 +111,6 @@ export class User extends DbConnect {
         return new Promise<Type.ResponseMsg>(async (resolve, reject) => {
             
             let get_response = await this.get(in_email)
-    
             if (get_response.status != 100){
                 resolve({
                     status:get_response.status,
@@ -117,38 +119,11 @@ export class User extends DbConnect {
                 })
                 return
             }
-            let options = {method: 'POST'}
-            let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=email%2Cname&access_token=${in_token}`)
-            let data = await resp.json()
-
-            let {error,email,name,id} = data
-
-            if (!!error){
-                resolve({
-                    status:401,
-                    message:Type.StatusTypes[401],
-                    content: error["message"]
-                })
-                return
-            }
-
-            if (in_email != email){
-                resolve({
-                    status:401,
-                    message:Type.StatusTypes[401],
-                    content: in_email
-                })
-                return 
-            }
-
-
-            // console.log(`https://graph.facebook.com/v16.0/me&access_token=${token}`);
-
             
 
             let session = new Session()
             let response = await session.addSession(in_email,in_token)
-
+            
             if (response.status != 100){
                 resolve(
                     {
@@ -162,7 +137,6 @@ export class User extends DbConnect {
             }
 
             response = await session.getSession(in_email)
-
             if (response.status != 100){
                 resolve(
                     {
@@ -175,8 +149,7 @@ export class User extends DbConnect {
                 return
             }
 
-            console.log(email);
-            console.log(response.content.session_id);
+        
             
             
 
@@ -200,7 +173,7 @@ export class User extends DbConnect {
         return new Promise<Type.ResponseMsg>(async (resolve, reject) => {
 
             let options = {method: 'POST'}
-            let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=email%2Cname&access_token=${in_token}`)
+            let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${in_token}`)
             let data = await resp.json()
 
             let {error,email,name,id} = data
@@ -254,11 +227,14 @@ export class User extends DbConnect {
 
             let session = new Session()
 
-            // let response = await session.getSession(in_email)
+            let Sresponse = await session.getSession(in_email)
 
-            // console.log(response);
             
-            // let {token} = response.content
+            let {token} = Sresponse.content
+
+            fetch(`https://graph.facebook.com/v12.0/me/permissions?access_token=${token}`, {
+                method: 'DELETE'
+            })
 
             let response = await session.deleteSession(in_email)
 

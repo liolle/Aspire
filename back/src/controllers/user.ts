@@ -2,19 +2,21 @@ import { Request, Response } from "express";
 import { User } from "../models/users";
 import * as Type from "../utils/types";
 import { signJWT } from "../utils/token";
+import fetch from "node-fetch";
 // import { Tags } from "../models/tags";
 
 const attachToken = (payload:object,res: Response)=>{
     const accessToken = signJWT(payload, process.env.ACCESS_TOKEN_TTL as string ||'1d');
+    // res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none",secure:true})
     res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none",secure:true})
 }
 
 export const login = async (req: Request, res: Response)=>{
     let {u_tag} = req.params
 
-    let {token,email} = req.body
+    let {token} = req.body
 
-    if (!token || !email){
+    if (!token){
         res.status(400).json(
             {
                 status:400,
@@ -23,14 +25,34 @@ export const login = async (req: Request, res: Response)=>{
             }
         )
     }
+    
+    let FBresponse = await fetch(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`)
+    let data = await FBresponse.json() as Type.FBLoginInfo | Type.FBError
+    console.log(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`);
+    
+    if ("error" in data){
+        res.status(400).json(
+            {
+                status:100,
+                message:Type.StatusTypes[100],
+                content: data.error.message
+            }
+        )
+
+        return
+    }
+
+    console.log(data);
+    
 
     let user = new User()
 
-    let response = await user.login(email,token)
+    let response = await user.login(data.email,token)
 
     user.close()
 
     if (response.status != 100){
+        
         res.status(400).json(
             {
                 status:response.status,
@@ -41,13 +63,13 @@ export const login = async (req: Request, res: Response)=>{
         return
     }
 
-    // attachToken({
-    //     email: email,
-    //     session_id :response.content.session_id
-    // },res)
+    attachToken({
+        email: data.email,
+        session_id :response.content.session_id
+    },res)
 
     const accessToken = signJWT({
-        email: email,
+        email: data.email,
         session_id :response.content.session_id
     }, process.env.ACCESS_TOKEN_TTL as string ||'1d');
     res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none"})
@@ -56,7 +78,7 @@ export const login = async (req: Request, res: Response)=>{
         {
             status:100,
             message:Type.StatusTypes[100],
-            content: response
+            content: accessToken
         }
     )
 }
@@ -107,6 +129,7 @@ export const logout = async (req: Request, res: Response)=>{
     // erase cookie 
     let user = new User()
     let resp = await user.logout(req.params.email)
+        
     user.close()
     if (resp.status != 100){
         res.status(400).json({
@@ -117,7 +140,9 @@ export const logout = async (req: Request, res: Response)=>{
         return
     }
 
-    res.clearCookie("ASP_AT")
+    // res.clearCookie("ASP_AT")
+
+    
 
     res.status(200).json({
         status:100,
@@ -126,3 +151,15 @@ export const logout = async (req: Request, res: Response)=>{
     })
     
 }
+
+export const ping = async (req: Request, res: Response)=>{
+
+    res.status(200).json({
+        status:100,
+        message:Type.StatusTypes[100],
+        content: {}
+    })
+    
+}
+
+

@@ -36,11 +36,11 @@ else{
 
 const PORT = 3535
 
-const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://localhost:4173']
+const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://localhost:4173','https://localhost:5173','https://localhost:4173',"https://google.com"]
 
 var corsOptions = {
   credentials: true,
-  origin: whitelist
+  whitelist : whitelist
 }
 
 //MIDDLEWARE//
