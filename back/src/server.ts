@@ -54,6 +54,7 @@ app.use(cors(corsOptions));
 //ROUTES//
 
 app.use('/users',require('./routes/users.routes'))
+app.use('/models',require('./routes/profiles.routes'))
 
 
 app.listen(PORT,() =>{

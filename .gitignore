@@ -129,4 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 back/.env.production
-.gitignore
+
+front/apire-privateKey.key
+front/apire.crt

@@ -14,6 +14,7 @@ import { useState } from 'react'
 import LoginPopup from '../Components/login/popUpLog'
 import MenuSlider from '../Components/Nav/MenuSlider'
 import SCard from '../Components/sliders/cardSlide'
+import ModelDisplay from '../Components/Cards/ModelDisplay'
 
 
 
@@ -50,8 +51,16 @@ import SCard from '../Components/sliders/cardSlide'
 
                 <NavBar setOppenPopup={setOppenPopup}/>
                 <MenuSlider/>
-                <div className='text-4xl font-bold flex justify-center items-center flex-1'>
-                    <span className='p-2'> Models pages </span>
+                <div className='text-4xl font-bold flex justify-center 
+                items-center flex-1 p-4'>
+                    <div className=' bg-neutral-200 flex flex-1 
+                    h-full rounded-md p-2 gap-4 justify-center items-center flex-wrap'>
+                        <ModelDisplay/>
+                        <ModelDisplay/>
+                        <ModelDisplay/>
+                        <ModelDisplay/>
+                        <ModelDisplay/>
+                    </div>
                 </div>
             </section>
         </div>

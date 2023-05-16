@@ -68,7 +68,7 @@ const NavBar = ( {setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetStateAct
                 {/* <Logo/> */}
                 <span className="  "> ASPIRE </span>
             </div>
-            <div className=" flex-1 flex  justify-start font-bold items-center select-none">
+            <div className=" flex-1 flex  justify-center font-bold items-center select-none">
                 <Navigation/>
             </div>
             <div className=" flex justify-center items-center 
@@ -101,17 +101,17 @@ const Navigation = ()=>{
     return (
 
         <div className=" hidden md:flex gap-4 py-2 px-4 ">
-            <span onClick={()=>navigation("/pricing")}
-            className=" hover:cursor-pointer hover:text-orange hover:border-orange border-b-2 border-blk-200 "> 
-                Pricing 
-            </span>
             {
                 connected &&<span onClick={()=>navigation("/profiles")}
-                className=" hover:cursor-pointer hover:text-orange hover:border-orange border-b-2 border-blk-200 "> 
-                    profiles 
+                className=" hover:cursor-pointer hover:text-orange  border-blk-200 "> 
+                    Profiles 
                 </span>
 
             }
+            <span onClick={()=>navigation("/pricing")}
+            className=" hover:cursor-pointer hover:text-orange  border-blk-200 "> 
+                Pricing 
+            </span>
         </div>
 
     )
