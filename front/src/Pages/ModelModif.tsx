@@ -172,7 +172,7 @@ const HeightSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/models/${id}/height/${value}`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/models/${id}/height/${value}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         if (response.status == 200){
@@ -259,7 +259,7 @@ const WeightSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/models/${id}/weight/${value}`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/models/${id}/weight/${value}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         if (response.status == 200){
@@ -346,7 +346,7 @@ const SkinColorSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/models/${id}/skinColor/${value.replace('#','')}`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/models/${id}/skinColor/${value.replace('#','')}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
         
         if (response.status == 200){
@@ -429,7 +429,7 @@ const HairColorSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/models/${id}/hairColor/${value.replace('#','')}`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/models/${id}/hairColor/${value.replace('#','')}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
         
         if (response.status == 200){

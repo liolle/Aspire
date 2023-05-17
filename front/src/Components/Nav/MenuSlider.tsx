@@ -44,7 +44,7 @@ const MenuSlider = ()=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/users/logout`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/users/logout`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         data.status == 100 && Logout()

@@ -22,7 +22,7 @@ const PrivateRoute = () => {
   useEffect(()=>{
 
     const syncModel = async ()=>{
-      const authRoute = `${import.meta.env.VITE_HOST}/models/all`;
+      const authRoute = `${import.meta.env.VITE_SERVER}/models/all`;
       // const dispatch = useDispatch()
       let options = {
         method: 'GET',
@@ -44,7 +44,7 @@ const PrivateRoute = () => {
     }
 
       const connected = async ()=>{
-        const authRoute = `${import.meta.env.VITE_HOST}/users/auth`;
+        const authRoute = `${import.meta.env.VITE_SERVER}/users/auth`;
         let options = {
           method: 'POST',
           headers: {

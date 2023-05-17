@@ -6,6 +6,8 @@ on:
     branches:
       - main
 
+
+
 jobs:
   deploy:
     runs-on: windows-latest
@@ -32,3 +34,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./front/dist
           publish_branch: gh-pages
+
+        env:
+          VITE_HOST: ${{ secrets.VITE_HOST }}
+          VITE_SERVER: ${{ secrets.VITE_SERVER }}

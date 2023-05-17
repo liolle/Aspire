@@ -13,7 +13,7 @@ export function FacebookButton () {
     const connected = useSelector(state => state.connectStatus.value)
     const dispatch = useDispatch()
 
-    const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=253355607076885&display=popup&response_type=token&redirect_uri=http://localhost:5173/login&scope=email`
+    const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=253355607076885&display=popup&response_type=token&redirect_uri=${import.meta.env.VITE_HOST}/login&scope=email`
 
  
     const FBDisconnect = async ()=>{
@@ -27,7 +27,7 @@ export function FacebookButton () {
         } 
     
         //@ts-ignore
-        let response = await fetch(`${import.meta.env.VITE_HOST}/users/logout`,option)
+        let response = await fetch(`${import.meta.env.VITE_SERVER}/users/logout`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         data.status == 100 && Logout()
