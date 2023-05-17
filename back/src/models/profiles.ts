@@ -28,11 +28,21 @@ export class Profiles extends DbConnect {
                     return 
                 }
 
-                resolve({
-                    status:100,
-                    message:Type.StatusTypes[100],
-                    content: {}
+                let last_id_query = `
+                SELECT LAST_INSERT_ID() AS id;
+                `
+
+
+                this.connection.query(last_id_query, async (err:any, rows:any, fields:any)=>{
+                    console.log(rows);
+                    
+                    resolve({
+                        status:100,
+                        message:Type.StatusTypes[100],
+                        content: rows[0]['id'] || 0
+                    })
                 })
+
             })
         })
     }

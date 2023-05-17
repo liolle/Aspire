@@ -98,6 +98,14 @@ const MenuSlider = ()=>{
 
             <div className=" flex flex-col justify-between gap-4">
 
+                {
+                    connected &&<span onClick={()=>closeMenu("/profiles")}
+                    className=" p-4 text-lg font-mono 
+                    select-none hover:cursor-pointer hover:text-orange font-bold  "> 
+                        Profiles 
+                    </span>
+                }
+
                 <div onClick={()=>closeMenu("/pricing")} 
                 className=" p-4 text-lg font-mono 
                 select-none hover:cursor-pointer hover:text-orange font-bold 

@@ -36,7 +36,7 @@ export const add = async (req: Request, res: Response)=>{
         {
             status:100,
             message:Type.StatusTypes[100],
-            content: {}
+            content: response.content
         }
     )
 }

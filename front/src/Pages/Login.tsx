@@ -5,6 +5,7 @@ import MenuSlider from '../Components/Nav/MenuSlider'
 import { useNavigate } from "react-router-dom"
 import { connect,disconnect } from "../feature/user"
 import { useSelector, useDispatch } from 'react-redux'
+import { sync } from "../feature/modelList"
 
 interface CInfo {
     access_token:string,
@@ -24,7 +25,6 @@ interface CInfo {
     const dispatch = useDispatch()
 
     const closePopup = ()=>{
-
         const section1 = document.querySelector("#sec1") as HTMLElement
         const section2 = document.querySelector("#sec2") as HTMLElement
         const section3 = document.querySelector("#sec3") as HTMLElement
@@ -33,14 +33,15 @@ interface CInfo {
         if(section2){section2.classList.remove("hidden")}
         if(section3){section3.classList.remove("hidden")}
         if(section4){section4.classList.remove("hidden")}
-
         setOppenPopup(false)
     }
 
-    const connectSuccess = (token ="")=>{
+    const connectSuccess = async (token ="")=>{
         dispatch(connect())
         token != "" && localStorage.setItem('ASP_AT', token);
-        navigate("/profiles")
+        setTimeout(() => {
+            navigate("/profiles")
+        }, 50);
     }
 
     const connectFail = ()=>{
@@ -50,7 +51,6 @@ interface CInfo {
 
     const FBConnect = async (cInfo:CInfo)=>{
         if (cInfo && cInfo.access_token != ""){
-
             let options = {
                 method:"POST",
                 headers: {
@@ -61,17 +61,10 @@ interface CInfo {
                     token : cInfo.access_token
                 })
             } as RequestInit
-
             let response = await fetch(`${import.meta.env.VITE_HOST}/users/login`,options)
             const setCookieHeader = response.headers.get('Set-Cookie');
-            
             let data = await response.json() as { status: number, message: string, content: any }
-
-            
-
             data.status == 100 ? connectSuccess(data.content) : connectFail()
-            
-            
         }
     }
   
@@ -107,7 +100,6 @@ interface CInfo {
     return (
         <div className=' bg-neutral-100 '>
             <section id='sec0' className=' h-screen flex flex-1 flex-col  '>
-
                 {
                     oppenPopup && <div onClick={()=>closePopup()}
                     className=" absolute w-full h-screen 
@@ -115,15 +107,11 @@ interface CInfo {
                         <LoginPopup setOppenPopup={setOppenPopup}/>
                     </div>
                 }
-
                 <NavBar setOppenPopup={setOppenPopup}/>
                 <MenuSlider/>
                 <div className='text-4xl font-bold flex justify-center items-center flex-1'>
                     <span className='p-2'> Login pages </span>
                 </div>
-                
-                
-                
             </section>
         </div>
     )

@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit' 
 
+const initialState:{value:boolean|null} = {
+  value:null
+}
+
 export const connectSlice = createSlice({
   name: 'connectionStatus',
-  initialState: {
-    value: false
-  },
+  initialState,
   reducers: {
     connect: state => {state.value = true},
     disconnect: state => {

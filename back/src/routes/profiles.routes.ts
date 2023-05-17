@@ -6,8 +6,8 @@ import { add, del, get, getAll, setHairColor, setHeight, setSkinColor, setWeight
 const router = express.Router();
 
 
-router.get('/:id', checkAuth,get);
 router.get('/all', checkAuth,getAll);
+router.get('/:id', checkAuth,get);
 
 
 router.put('/add', checkAuth,add);

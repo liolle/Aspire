@@ -77,7 +77,13 @@ const NavBar = ( {setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetStateAct
                 className="text-3xl font-bold 
                 font-mono hover:cursor-pointer
                 hidden md:flex">
-                    <FaRegUserCircle/>
+                    {/* <FaRegUserCircle/> */}
+                    <button type="button" className=" bg-blk-300 text-wht hover:text-orange text-lg py-2 px-4 rounded-md border-2">
+                        {
+                            connected ? "Logout": "Login"
+                        }
+                        
+                    </button>
                 </div>
 
                 <div onClick={()=>openMenu()}
@@ -106,8 +112,8 @@ const Navigation = ()=>{
                 className=" hover:cursor-pointer hover:text-orange  border-blk-200 "> 
                     Profiles 
                 </span>
-
             }
+            
             <span onClick={()=>navigation("/pricing")}
             className=" hover:cursor-pointer hover:text-orange  border-blk-200 "> 
                 Pricing 

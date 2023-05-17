@@ -1,4 +1,4 @@
-import React from'react-router-dom'
+import React, { useNavigate } from'react-router-dom'
 import NavBar from "../Components/Nav/NavB"
 import model11 from '../Images/model11.jpg'
 
@@ -10,7 +10,7 @@ import model4 from '../Images/model4.jpg'
 import Footer from '../Components/Footer/Footer'
 import FAQ from '../Components/FAQ/Faq'
 import Team from '../Components/Team/Team'
-import { useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import LoginPopup from '../Components/login/popUpLog'
 import MenuSlider from '../Components/Nav/MenuSlider'
 import SCard from '../Components/sliders/cardSlide'
@@ -20,14 +20,15 @@ import { ModelInfo } from '../utils/types'
 
 
 
- const ProfilesPage = () => {
+ const NewModel = () => {
 
     const [oppenPopup, setOppenPopup] = useState(false)
     //@ts-ignore
     const modelList:ModelInfo[] = useSelector(state => state.modelList.value)
     const dispatch = useDispatch()
-    console.log(modelList);
-    
+    let form = useRef<HTMLFormElement>(null)
+    const navigate = useNavigate()
+
     const closePopup = ()=>{
 
         const section1 = document.querySelector("#sec1") as HTMLElement
@@ -42,8 +43,28 @@ import { ModelInfo } from '../utils/types'
         setOppenPopup(false)
     }
   
-    console.log(modelList);
+     const  createModel = async (event: FormEvent<HTMLFormElement>)=> {
+        event.preventDefault()
+        const { new_model_email } = form.current as HTMLFormElement ;
+        if (!new_model_email.value) return
+
+        let option = {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'Content-Type': 'application/json',
+            },
+        } 
     
+        //@ts-ignore
+        let response = await fetch(`${import.meta.env.VITE_HOST}/models/add?email=${new_model_email.value}`,option)
+        let data = await response.json() as { status: number, message: string, content: any }
+        data.status == 100 ? navigate(`/edit_model?id=${data.content}`) : console.log("Failed to create model");
+        
+
+        // console.log(new_model_email.value);
+
+     }
 
     return (
         <div className=' bg-neutral-100 '>
@@ -59,25 +80,14 @@ import { ModelInfo } from '../utils/types'
 
                 <NavBar setOppenPopup={setOppenPopup}/>
                 <MenuSlider/>
-                <div className='text-4xl font-bold flex justify-center 
-                items-center flex-1 p-4'>
-                    <div className=' bg-neutral-200 flex flex-1 
-                    h-full rounded-md p-2 gap-4 justify-evenly items-center flex-wrap'>
-                        {/* <ModelDisplay/>
-                        <ModelDisplay/>
-                        <ModelDisplay/>
-                        <ModelDisplay/>
-                        <ModelDisplay/> */}
-                        {
-                            modelList.map(elem=>{
-                                return (
-                                    <ModelDisplay key={elem.id} info={elem}/>
-                                )
-                            })
-                        }
-                        <ModelDisplay info={undefined}/>
-                        
-                    </div>
+                <div className=' font-bold flex justify-center 
+                items-center flex-1 p-2 text-base'>
+                    
+                    <form  className=' flex flex-col p-4 bg-blk-100 gap-4 rounded-md text-wht' onSubmit={createModel} ref={form}>
+                        <label htmlFor='new_model_email'>Email</label>
+                        <input type="email" placeholder='example@test.com' name="new_model_email" className=' p-1 text-blk-300'  />
+                        <button type='submit' className=' border-2 rounded'> Create </button>
+                    </form>
                 </div>
             </section>
         </div>
@@ -86,4 +96,4 @@ import { ModelInfo } from '../utils/types'
 
 
 
-export default ProfilesPage
+export default NewModel

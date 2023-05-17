@@ -8,26 +8,10 @@ import Login from "./Pages/Login"
 import PrivateRoute from "./utils/privateRoute"
 import { useSelector, useDispatch } from 'react-redux'
 import { connect,disconnect } from "./feature/user"
+import ModelEdit from "./Pages/ModelModif"
+import NewModel from "./Pages/NewModel"
 
 export function routes() {
-    //@ts-ignore
-    // const connected = useSelector(state => state.connectStatus.value)
-    // const dispatch = useDispatch()
-
-    // useEffect(()=>{
-    //     const connected = async ()=>{
-    //         const authRoute = `${import.meta.env.VITE_HOST}/users/auth`;
-    //             let option = {
-    //               method: 'POST',
-    //               headers: {
-    //                   'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-    //                   'Content-Type': 'application/json',
-    //               },
-    //             } 
-    //             const res = await fetch(authRoute, option);
-    //             res.status === 200 ? dispatch(connect()) : dispatch(disconnect());
-    //       }
-    // })
 
     return <Routes>
             <Route path='/' element={<ModelPage/>} />
@@ -36,8 +20,9 @@ export function routes() {
 
             <Route element={<PrivateRoute />}>
                 <Route path= '/profiles' element={<ProfilesPage/>} />
-                
             </Route>
+            <Route path= '/edit_model' element={<ModelEdit/>} />
+            <Route path= '/new_model' element={<NewModel/>} />
             <Route path= '*' element={<div className="flex justify-center items-center text-4xl font-bold h-screen"> <span> 404</span> </div>} />
     </Routes>
 }
