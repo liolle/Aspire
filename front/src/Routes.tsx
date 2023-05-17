@@ -1,13 +1,9 @@
-import React, { Profiler, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 import ModelPage from "./Pages/Landing"
 import PricingPage from "./Pages/PricingPage"
-import TestComp from "./Pages/TestComponent"
 import ProfilesPage from "./Pages/Profiles"
 import Login from "./Pages/Login"
 import PrivateRoute from "./utils/privateRoute"
-import { useSelector, useDispatch } from 'react-redux'
-import { connect,disconnect } from "./feature/user"
 import ModelEdit from "./Pages/ModelModif"
 import NewModel from "./Pages/NewModel"
 
