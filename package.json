@@ -11,6 +11,7 @@
     "test:front": "npm run test --workspace=front",
     "test:back": "npm run test --workspace=back",
     "dev": "npm run dev --workspace=front",
+    "build:front": "npm run build --workspace=front",
     "start:dev": "npm run start:dev --workspace=back",
     "start:prod": "npm run start:prod --workspace=back",
     "deploy:front": "npm run deploy --workspace=front",

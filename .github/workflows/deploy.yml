@@ -1,0 +1,34 @@
+name: Deploy to GitHub Pages
+
+# trigger
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:front
+
+      - name: Deploy to GitHub Pages
+        # used to  building the site, committing the built files to a separate branch, and pushing the changes to your GitHub repository.
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./front/dist
+          publish_branch: gh-pages
