@@ -40,7 +40,7 @@ const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://l
 
 var corsOptions = {
   credentials: true,
-  whitelist : whitelist,
+  origin : whitelist,
   methods: 'GET, POST, PUT, DELETE',
   allowedHeaders: 'Content-Type, Authorization',
 }
