@@ -1,5 +1,5 @@
  
- import back from '../Images/back.png'
+ import back from '../images/back.png'
  import './cardSlide.css'
  
  const CreateModel= ({bg,title}:{bg:{backgroundImage: string},title:string})=>{

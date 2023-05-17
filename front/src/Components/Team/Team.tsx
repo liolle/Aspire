@@ -1,8 +1,8 @@
 import React from "react";
-import bilal from "../../Images/bilal.jpg"
-import Yves from "../../Images/Yves.jpg"
-import Etienne from "../../Images/Etienne.jpg"
-import Alex from "../../Images/Alex.jpg"
+import bilal from "../../images/bilal.jpg"
+import Yves from "../../images/Yves.jpg"
+import Etienne from "../../images/Etienne.jpg"
+import Alex from "../../images/Alex.jpg"
 
 
 
