@@ -9,6 +9,10 @@ export default defineConfig({
   //     cert: "./apire.crt"
   //   }
   // },
+  base: "./",
   plugins: [react()],
+  build:{
+    emptyOutDir: true,
+  }
 })
 
