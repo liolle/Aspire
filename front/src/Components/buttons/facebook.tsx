@@ -21,6 +21,7 @@ export function FacebookButton () {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         } 

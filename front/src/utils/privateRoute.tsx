@@ -28,7 +28,8 @@ const PrivateRoute = () => {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-            'Content-Type': 'application/json',
+            'accept': 'application/json',
+      'Content-Type': 'application/json',
         },
       } 
       const res = await fetch(authRoute, options);
@@ -48,7 +49,8 @@ const PrivateRoute = () => {
           method: 'POST',
           headers: {
               'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-              'Content-Type': 'application/json',
+              'accept': 'application/json',
+      'Content-Type': 'application/json',
           },
         } 
         const res = await fetch(authRoute, options);

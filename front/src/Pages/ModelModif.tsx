@@ -166,6 +166,7 @@ const HeightSector = ({id}:{id:number})=>{
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         } 
@@ -252,7 +253,8 @@ const WeightSector = ({id}:{id:number})=>{
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-                'Content-Type': 'application/json',
+                'accept': 'application/json',
+      'Content-Type': 'application/json',
             },
         } 
     
@@ -338,7 +340,8 @@ const SkinColorSector = ({id}:{id:number})=>{
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-                'Content-Type': 'application/json',
+                'accept': 'application/json',
+      'Content-Type': 'application/json',
             },
         } 
     
@@ -420,7 +423,8 @@ const HairColorSector = ({id}:{id:number})=>{
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-                'Content-Type': 'application/json',
+                'accept': 'application/json',
+      'Content-Type': 'application/json',
             },
         } 
     

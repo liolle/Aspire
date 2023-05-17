@@ -54,6 +54,7 @@ interface CInfo {
             let options = {
                 method:"POST",
                 headers: {
+                    'accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 mode: 'cors',

@@ -29,13 +29,21 @@ const PORT = 3535;
 const whitelist = ['https://liolle.github.io', 'http://localhost:5173', 'http://localhost:4173', 'https://localhost:5173', 'https://localhost:4173', "https://google.com"];
 var corsOptions = {
     credentials: true,
-    whitelist: whitelist
+    whitelist: whitelist,
+    methods: 'GET, POST, PUT, DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
 };
 //MIDDLEWARE//
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)(corsOptions));
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+//   });
 //ROUTES//
 app.use('/users', require('./routes/users.routes'));
 app.use('/models', require('./routes/profiles.routes'));

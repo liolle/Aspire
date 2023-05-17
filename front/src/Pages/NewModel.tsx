@@ -52,6 +52,7 @@ import { ModelInfo } from '../utils/types'
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         } 

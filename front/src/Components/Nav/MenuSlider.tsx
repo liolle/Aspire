@@ -38,6 +38,7 @@ const MenuSlider = ()=>{
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+                'accept': 'application/json',
                 'Content-Type': 'application/json',
             },
         } 

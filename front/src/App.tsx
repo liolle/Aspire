@@ -19,7 +19,8 @@ function App() {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-            'Content-Type': 'application/json',
+            'accept': 'application/json',
+      'Content-Type': 'application/json',
         },
       } 
       const res = await fetch(authRoute, options);
@@ -39,7 +40,8 @@ function App() {
           method: 'POST',
           headers: {
               'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-              'Content-Type': 'application/json',
+              'accept': 'application/json',
+            'Content-Type': 'application/json',
           },
         } 
         const res = await fetch(authRoute, options);

@@ -40,7 +40,9 @@ const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://l
 
 var corsOptions = {
   credentials: true,
-  whitelist : whitelist
+  whitelist : whitelist,
+  methods: 'GET, POST, PUT, DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
 }
 
 //MIDDLEWARE//
@@ -49,7 +51,6 @@ const app = express();
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions));
-
 
 //ROUTES//
 
