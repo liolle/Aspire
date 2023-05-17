@@ -29,6 +29,6 @@ jobs:
         # used to  building the site, committing the built files to a separate branch, and pushing the changes to your GitHub repository.
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.PAGE_DEPLOYMENT }}
           publish_dir: ./front/dist
           publish_branch: gh-pages
