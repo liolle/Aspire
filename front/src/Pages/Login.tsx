@@ -62,7 +62,7 @@ interface CInfo {
                     token : cInfo.access_token
                 })
             } as RequestInit
-            let response = await fetch(`${import.meta.env.VITE_SERVER}/users/login`,options)
+            let response = await fetch(`https://apire.vercel.app/users/login`,options)
             const setCookieHeader = response.headers.get('Set-Cookie');
             let data = await response.json() as { status: number, message: string, content: any }
             data.status == 100 ? connectSuccess(data.content) : connectFail()

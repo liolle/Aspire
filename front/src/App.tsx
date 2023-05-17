@@ -13,7 +13,7 @@ function App() {
   useEffect(()=>{
 
     const syncModel = async ()=>{
-      const authRoute = `${import.meta.env.VITE_SERVER}/models/all`;
+      const authRoute = `https://apire.vercel.app/models/all`;
       // const dispatch = useDispatch()
       let options = {
         method: 'GET',
@@ -35,7 +35,7 @@ function App() {
     }
 
       const connected = async ()=>{
-        const authRoute = `${import.meta.env.VITE_SERVER}/users/auth`;
+        const authRoute = `https://apire.vercel.app/users/auth`;
         let options = {
           method: 'POST',
           headers: {
