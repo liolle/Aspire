@@ -36,5 +36,5 @@ jobs:
           publish_branch: gh-pages
 
         env:
-          VITE_HOST: ${{ secrets.VITE_HOST }}
-          VITE_SERVER: ${{ secrets.VITE_SERVER }}
+          VITE_HOST: ${{ env.VITE_HOST }}
+          VITE_SERVER: ${{ env.VITE_SERVER }}
