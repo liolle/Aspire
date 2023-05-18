@@ -13,7 +13,7 @@ export function FacebookButton () {
     const connected = useSelector(state => state.connectStatus.value)
     const dispatch = useDispatch()
 
-    const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=3354425558205408&display=popup&response_type=token&redirect_uri=https://liolle.github.io/login&scope=email`
+    const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=3354425558205408&display=popup&response_type=token&redirect_uri=https://liolle.github.io/Aspire/#/login&scope=email`
 
  
     const FBDisconnect = async ()=>{
