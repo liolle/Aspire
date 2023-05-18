@@ -36,11 +36,12 @@ class Profiles extends dbConnect_1.default {
     async add(account_email, model_email) {
         const get_query = `
         INSERT INTO ma_models (account_email,model_email)
-        VALUE('${account_email}','${model_email}')
+        VALUES ('${account_email}','${model_email}')
         `;
         return new Promise((resolve, reject) => {
             this.connection.query(get_query, async (err, rows, fields) => {
                 if (err) {
+                    console.log(err);
                     resolve({
                         status: 202,
                         message: Type.StatusTypes[202],

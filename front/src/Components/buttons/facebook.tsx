@@ -5,15 +5,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import { connect,disconnect } from "../../feature/user";
 import { useNavigate } from "react-router-dom";
 
+declare global {
+    interface Window {
+      fbAsyncInit: () => void;
+      FB: any;
+    }
+  }
+
 export function FacebookButton () {
     // const [FBStatus, setFBStatus] = useState <fb.StatusResponse>()
     const [avatar, setAvatar] = useState ("https://img.freepik.com/premium-vector/male-avatar-icon-unknown-anonymous-person-default-avatar-profile-icon-social-media-user-business-man-man-profile-silhouette-isolated-white-background-vector-illustration_735449-122.jpg")
-    const navavigate = useNavigate()
+    const navigate = useNavigate()
     //@ts-ignore
     const connected = useSelector(state => state.connectStatus.value)
     const dispatch = useDispatch()
 
-    const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=3354425558205408&display=popup&response_type=token&redirect_uri=https://liolle.github.io/Aspire/#/login&scope=email`
+    // const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=3354425558205408&display=popup&response_type=token&redirect_uri=https://liolle.github.io/Aspire/#/login&scope=email`
 
  
     const FBDisconnect = async ()=>{
@@ -34,17 +41,78 @@ export function FacebookButton () {
         
     }
 
+    const connectSuccess = async (token ="")=>{
+        dispatch(connect())
+        token != "" && localStorage.setItem('ASP_AT', token);
+        setTimeout(() => {
+            navigate("/profiles")
+        }, 50);
+    }
+    
+    useEffect(() => {
+        // Load the Facebook SDK asynchronously
+        const loadFacebookSDK = () => {
+          return new Promise<void>((resolve) => {
+            window.fbAsyncInit = function() {
+              window.FB.init({
+                appId: '3354425558205408',
+                cookie: true,
+                xfbml: true,
+                version: 'v16.0'
+              });
+    
+              // Resolve the promise once the SDK is loaded
+              resolve();
+            };
+    
+            // Load the Facebook SDK script
+            (function() {
+              var js, fjs = document.getElementsByTagName("script")[0];
+              if (document.getElementById("facebook-jssdk")) return;
+              js = document.createElement("script"); 
+              js.id = 'facebook-jssdk';
+              js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=3354425558205408';
+              let fjsParent = fjs.parentNode as ParentNode
+              fjsParent.insertBefore(js, fjs);
+            }());
+
+          });
+        };
+    
+        // Load the Facebook SDK
+        loadFacebookSDK();
+      }, []);
+    // const dowloadSDK = async ()=>{
+
+
+    // }
+
     const Login = ()=>{
         
         // window.open(connectlink, "mozillaWindow", "popup");
         const windowFeatures = "left=100,top=100,width=850,height=1000";
-        window.open(connectlink,"_self");
+        // window.open(connectlink,"_self");
+        if (!connected){
+            
+            window.FB.login(function(response: {authResponse:{accessToken:string}}) {
+                if (response) {
+                  // User is logged in
+                  dispatch(connect())
+                  console.log('Logged in', response);
+                  navigate(`/login?access_token=${response.authResponse.accessToken}`)
+                } else {
+                  // User cancelled login or didn't authorize the app
+                  console.log('Login cancelled');
+                  dispatch(disconnect())
+                }
+              },{scope: 'public_profile,email'});
+        }
 
     }
 
     const Logout = ()=>{
         dispatch(disconnect())
-        navavigate("/")
+        navigate("/")
     }
 
 

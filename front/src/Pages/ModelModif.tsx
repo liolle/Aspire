@@ -45,8 +45,9 @@ import 'react-toastify/dist/ReactToastify.css';
     }
     
     useEffect(()=>{
-        let search = location.search.replace('?','').split('&')
-
+        let search = location.hash.split('?')
+        
+        
         for (let elem of search){
             if (elem.includes("id")){
                 let split = elem.split("=")
@@ -56,7 +57,7 @@ import 'react-toastify/dist/ReactToastify.css';
                 setModelId(isNaN(id)?0:id)
             }
         }
-    },[activeChar])
+    },[activeChar,model_id])
   
     return (
         <div className=' bg-neutral-100 '>

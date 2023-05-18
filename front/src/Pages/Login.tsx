@@ -54,6 +54,7 @@ interface CInfo {
             let options = {
                 method:"POST",
                 headers: {
+                    
                     'accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
@@ -63,15 +64,18 @@ interface CInfo {
                 })
             } as RequestInit
             let response = await fetch(`https://apire.vercel.app/users/login`,options)
-            const setCookieHeader = response.headers.get('Set-Cookie');
             let data = await response.json() as { status: number, message: string, content: any }
+            
+            
             data.status == 100 ? connectSuccess(data.content) : connectFail()
         }
     }
   
     
     useEffect(()=>{
-        const locArr = location.hash.replace('#','').split('&')
+        const locArr = location.hash.split('?')
+        console.log(locArr);
+        
         let cInfo :CInfo = {access_token:"",data_access_expiration_time:"",expires_in:"",long_lived_token:""} 
         locArr.map((val,idx) => {
             let item = val.split('=')
@@ -80,20 +84,21 @@ interface CInfo {
                     case "access_token":
                         cInfo.access_token = item[1]
                         break;
-                    case "data_access_expiration_time":
-                        cInfo.data_access_expiration_time = item[1]
-                        break;
-                    case "expires_in":
-                        cInfo.expires_in = item[1]
-                        break;
-                    case "long_lived_token":
-                        cInfo.long_lived_token = item[1]
-                        break;
+                    // case "data_access_expiration_time":
+                    //     cInfo.data_access_expiration_time = item[1]
+                    //     break;
+                    // case "expires_in":
+                    //     cInfo.expires_in = item[1]
+                    //     break;
+                    // case "long_lived_token":
+                    //     cInfo.long_lived_token = item[1]
+                    //     break;
                     default:
                         break;
                 }
             }
         })
+        
         setConnectInfo(cInfo)
         FBConnect(cInfo)
     },[])

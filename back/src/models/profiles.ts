@@ -14,11 +14,12 @@ export class Profiles extends DbConnect {
     async add (account_email:string,model_email:string){
         const get_query = `
         INSERT INTO ma_models (account_email,model_email)
-        VALUE('${account_email}','${model_email}')
+        VALUES ('${account_email}','${model_email}')
         `
         return new Promise<Type.ResponseMsg>((resolve, reject) => {
             this.connection.query(get_query, async (err:any, rows:any, fields:any)=>{
                 if (err){
+                    console.log(err);
                     
                     resolve({
                         status:202,

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { sync } from '../feature/modelList';
 import { connect, disconnect } from '../feature/user';
 
-const DEVELOP = "http://localhost:3535"
+const DEVELOP = "https://apire.vercel.app"
 const PRODUCTION = "https://book-face-backend.vercel.app"
 
 const PrivateRoute = () => {
