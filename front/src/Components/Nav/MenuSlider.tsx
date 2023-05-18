@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FacebookButton } from "../buttons/facebook";
 import { useSelector, useDispatch } from 'react-redux'
 import { connect,disconnect } from "../../feature/user";
+import { GoogleButton } from "../buttons/google";
 
 const MenuSlider = ()=>{
 
@@ -125,7 +126,12 @@ const MenuSlider = ()=>{
                         border-blk-100 hover:shadow-xl font-bold"> Disconnect </button>
                     }
                     {
-                        !connected && <FacebookButton/>
+                        !connected && 
+                        <div className=" flex flex-col gap-4
+                        text-xl text-blk-300">
+                            <GoogleButton/>
+                            {/* <FacebookButton/> */}
+                        </div>
                         
                     }
                 </div>
