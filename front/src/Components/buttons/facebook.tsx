@@ -55,7 +55,7 @@ export function FacebookButton () {
           return new Promise<void>((resolve) => {
             window.fbAsyncInit = function() {
               window.FB.init({
-                appId: '3354425558205408',
+                appId: '253355607076885',
                 cookie: true,
                 xfbml: true,
                 version: 'v16.0'
@@ -71,7 +71,7 @@ export function FacebookButton () {
               if (document.getElementById("facebook-jssdk")) return;
               js = document.createElement("script"); 
               js.id = 'facebook-jssdk';
-              js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0&appId=3354425558205408';
+              js.src = 'https://connect.facebook.net/en_US/sdk.js';
               let fjsParent = fjs.parentNode as ParentNode
               fjsParent.insertBefore(js, fjs);
             }());
@@ -105,7 +105,7 @@ export function FacebookButton () {
                   console.log('Login cancelled');
                   dispatch(disconnect())
                 }
-              },{scope: 'public_profile,email'});
+              },{ scope: 'public_profile,email', redirect_uri: "https://localhost:5173/#/login/" });
         }
 
     }
@@ -117,11 +117,12 @@ export function FacebookButton () {
 
 
     return (
-        <button onClick={()=>{
-            connected ? FBDisconnect(): Login()
-        }}
-        className=" flex gap-2 items-center justify-center w-[10rem]
-        border-[1px] rounded-md px-4 py-2 border-blk-100 hover:shadow-xl">
+        // <button onClick={()=>{
+        //     connected ? FBDisconnect(): Login()
+        // }}
+        <button onClick={()=>console.log(" feature disable for now (Can't find a way to configure facebook login API to allow account other then admin to connect)")}
+        className=" flex gap-2 items-center justify-center 
+        border-[1px] rounded-md px-4 py-1 border-blk-100 hover:shadow-xl">
             
             <div className=" flex h-5 w-5 text-[#3b5998] ">
                 <FaFacebookF />

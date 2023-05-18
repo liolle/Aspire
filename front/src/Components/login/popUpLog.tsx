@@ -4,6 +4,7 @@ import { RiCloseLine } from "react-icons/ri";
 // import { GoogleButton } from "../../buttons/google";
 import { FacebookButton } from "../buttons/facebook";
 import { useState } from "react";
+import { GoogleButton } from "../buttons/google";
 
 const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetStateAction<boolean>>|undefined})=>{
 
@@ -43,10 +44,10 @@ const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetState
                 <span className=" font-light text-blk-100">Enter your details to log in.</span>
             </div>
 
-            <div className=" flex gap-4
+            <div className=" flex flex-col gap-4
             text-xl text-blk-300">
-                {/* <GoogleButton/> */}
-                <FacebookButton/>
+                <GoogleButton/>
+                {/* <FacebookButton/> */}
             </div>
             <Separator/>
 

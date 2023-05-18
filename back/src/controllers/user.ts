@@ -6,17 +6,20 @@ import fetch from "node-fetch";
 // import { Tags } from "../models/tags";
 
 const attachToken = (payload:object,res: Response)=>{
+    console.log("setting cookie");
+    
     const accessToken = signJWT(payload, process.env.ACCESS_TOKEN_TTL as string ||'1d');
     // res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none",secure:true})
     res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none",secure:true})
 }
 
 export const login = async (req: Request, res: Response)=>{
-    let {u_tag} = req.params
+    console.log('login in ');
+    
 
-    let {token} = req.body
+    let {email,service,token} = req.params
 
-    if (!token){
+    if (!email || !service){
         res.status(400).json(
             {
                 status:400,
@@ -25,34 +28,19 @@ export const login = async (req: Request, res: Response)=>{
             }
         )
     }
-    
-    let FBresponse = await fetch(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`)
-    let data = await FBresponse.json() as Type.FBLoginInfo | Type.FBError
-    console.log(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`);
-    
-    if ("error" in data){
-        res.status(400).json(
-            {
-                status:100,
-                message:Type.StatusTypes[100],
-                content: data.error.message
-            }
-        )
 
-        return
-    }
-
-    console.log(data);
     
-
     let user = new User()
+    //@ts-ignore
+    let response = await user.login(email,{
+        token:token,
+        service:service == 'google'? 'google' : service == 'facebook' ? 'facebook' : 'google'
+    })
 
-    let response = await user.login(data.email,token)
 
-    user.close()
-
-    if (response.status != 100){
-        
+    
+    if (response.status != 100 && response.status != 201){
+        user.close()
         res.status(400).json(
             {
                 status:response.status,
@@ -63,14 +51,55 @@ export const login = async (req: Request, res: Response)=>{
         return
     }
 
+    if (response.status == 201){
+        console.log(201);
+        
+        if (service == "facebook"){
+            let reg_response = await user.register(email,'facebook')
+
+            if (reg_response.status != 100 ){
+                user.close()
+                res.status(400).json(
+                    {
+                        status:reg_response.status,
+                        message:reg_response.message,
+                        content: reg_response.content
+                    }
+                )
+                return
+            }
+        }
+        else if (service == "google"){
+            let reg_response = await user.register(email,'google')
+
+            if (reg_response.status != 100 ){
+                user.close()
+                res.status(400).json(
+                    {
+                        status:reg_response.status,
+                        message:reg_response.message,
+                        content: reg_response.content
+                    }
+                )
+                return
+            }
+        }
+        
+
+    }
+    user.close()
+    
+    
+        
     attachToken({
-        email: data.email,
+        email: email,
         session_id :response.content.session_id
     },res)
 
     const accessToken = signJWT({
-        email: data.email,
-        session_id :response.content.session_id
+        email: email,
+        session_id :response.content.session_id,
+        service: service
     }, process.env.ACCESS_TOKEN_TTL as string ||'1d');
     res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none"})
     
@@ -128,7 +157,8 @@ export const logout = async (req: Request, res: Response)=>{
 
     // erase cookie 
     let user = new User()
-    let resp = await user.logout(req.params.email)
+    let resp = await user.logout(req.params.email,'google' )
+    if (req.params.service == "facebook")resp = await user.logout(req.params.email,'facebook')
         
     user.close()
     if (resp.status != 100){

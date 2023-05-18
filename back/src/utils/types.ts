@@ -49,3 +49,10 @@ export interface FBError {
         fbtrace_id : string
     }
 }
+
+export type SServices = "facebook" | "google"
+
+export interface CInfo {
+    service:SServices,
+    token: string
+}

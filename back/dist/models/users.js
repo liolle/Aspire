@@ -35,10 +35,10 @@ class User extends dbConnect_1.default {
     constructor() {
         super();
     }
-    async get(email) {
+    async get(email, service) {
         let sql_get = `
         SELECT * FROM ma_users
-        WHERE email = '${email}'
+        WHERE email = '${email}' AND c_type = '${service}'
         `;
         return new Promise((resolve, reject) => {
             this.connection.query(sql_get, async (err, rows, fields) => {
@@ -66,10 +66,10 @@ class User extends dbConnect_1.default {
             });
         });
     }
-    async add(email) {
+    async add(email, service) {
         let sql_get = `
-        INSERT INTO ma_users (email)
-        VALUES ('${email}')
+        INSERT INTO ma_users (email,c_type)
+        VALUES ('${email}','${service}')
         `;
         return new Promise((resolve, reject) => {
             this.connection.query(sql_get, async (err, rows, fields) => {
@@ -78,7 +78,7 @@ class User extends dbConnect_1.default {
                         resolve({
                             status: 200,
                             message: Type.StatusTypes[200],
-                            content: email
+                            content: err
                         });
                         return;
                     }
@@ -105,19 +105,20 @@ class User extends dbConnect_1.default {
             });
         });
     }
-    async login(in_email, in_token) {
+    async login(in_email, info) {
         return new Promise(async (resolve, reject) => {
-            let get_response = await this.get(in_email);
+            let get_response = await this.get(in_email, info.service);
             if (get_response.status != 100) {
+                console.log("=>" + info.service);
                 resolve({
                     status: get_response.status,
                     message: get_response.message,
-                    content: in_email
+                    content: get_response.content
                 });
                 return;
             }
             let session = new sessions_1.Session();
-            let response = await session.addSession(in_email, in_token);
+            let response = await session.addSession(in_email, info.token);
             if (response.status != 100) {
                 resolve({
                     status: response.status,
@@ -143,32 +144,31 @@ class User extends dbConnect_1.default {
                 message: Type.StatusTypes[100],
                 content: { session_id: response.content.session_id }
             });
-            // Create a session using email and token 
         });
     }
-    async register(in_email, in_token) {
+    async FBRegister(in_email) {
         return new Promise(async (resolve, reject) => {
-            let options = { method: 'POST' };
-            let resp = await (0, node_fetch_1.default)(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${in_token}`);
-            let data = await resp.json();
-            let { error, email, name, id } = data;
-            if (!!error) {
-                resolve({
-                    status: 401,
-                    message: Type.StatusTypes[401],
-                    content: error["message"]
-                });
-                return;
-            }
-            if (in_email != email) {
-                resolve({
-                    status: 401,
-                    message: Type.StatusTypes[401],
-                    content: in_email
-                });
-                return;
-            }
-            let get_response = await this.add(in_email);
+            // let options = {method: 'POST'}
+            // let resp = await fetch(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${in_token}`)
+            // let data = await resp.json()
+            // let {error,email,name,id} = data
+            // if (!!error){
+            //     resolve({
+            //         status:401,
+            //         message:Type.StatusTypes[401],
+            //         content: error["message"]
+            //     })
+            //     return
+            // }
+            // if (in_email != email){
+            //     resolve({
+            //         status:401,
+            //         message:Type.StatusTypes[401],
+            //         content: in_email
+            //     })
+            //     return 
+            // }
+            let get_response = await this.add(in_email, 'facebook');
             if (get_response.status != 100) {
                 resolve({
                     status: get_response.status,
@@ -185,8 +185,42 @@ class User extends dbConnect_1.default {
             // Create a session using email and token 
         });
     }
-    //logout based on JWT
-    async logout(in_email) {
+    async GRegister(in_email) {
+        return new Promise(async (resolve, reject) => {
+            let get_response = await this.add(in_email, 'google');
+            if (get_response.status != 100) {
+                resolve({
+                    status: get_response.status,
+                    message: get_response.message,
+                    content: get_response.content
+                });
+                return;
+            }
+            resolve({
+                status: 100,
+                message: Type.StatusTypes[100],
+                content: {}
+            });
+            // Create a session using email and token 
+        });
+    }
+    async register(in_email, service) {
+        switch (service) {
+            case 'facebook':
+                return this.FBRegister(in_email);
+            case 'google':
+                return this.GRegister(in_email);
+            default:
+                return new Promise((resolve, reject) => {
+                    resolve({
+                        status: 100,
+                        message: Type.StatusTypes[100],
+                        content: {}
+                    });
+                });
+        }
+    }
+    async FBLogout(in_email) {
         return new Promise(async (resolve, reject) => {
             let session = new sessions_1.Session();
             let Sresponse = await session.getSession(in_email);
@@ -211,6 +245,52 @@ class User extends dbConnect_1.default {
                 content: {}
             });
         });
+    }
+    async GLogout(in_email) {
+        return new Promise(async (resolve, reject) => {
+            let session = new sessions_1.Session();
+            let Sresponse = await session.getSession(in_email);
+            let { token } = Sresponse.content;
+            (0, node_fetch_1.default)(`https://oauth2.googleapis.com/revoke?token=${token}`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/x-www-form'
+                }
+            });
+            let response = await session.deleteSession(in_email);
+            if (response.status != 100) {
+                resolve({
+                    status: response.status,
+                    message: response.message,
+                    content: response.content
+                });
+                session.close();
+                return;
+            }
+            session.close();
+            resolve({
+                status: 100,
+                message: Type.StatusTypes[100],
+                content: {}
+            });
+        });
+    }
+    //logout based on JWT
+    async logout(in_email, service) {
+        switch (service) {
+            case 'facebook':
+                return this.FBLogout(in_email);
+            case 'google':
+                return this.GLogout(in_email);
+            default:
+                return new Promise((resolve, reject) => {
+                    resolve({
+                        status: 100,
+                        message: Type.StatusTypes[100],
+                        content: {}
+                    });
+                });
+        }
     }
 }
 exports.User = User;

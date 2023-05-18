@@ -36,13 +36,14 @@ else{
 
 const PORT = 3535
 
-const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://localhost:4173','https://localhost:5173','https://localhost:4173',"https://google.com"]
+const  whitelist = ['https://liolle.github.io','http://localhost:5173','http://localhost:4173','https://localhost:5173','https://localhost:4173',"https://google.com",
+'https://liolle.github.io/','http://localhost:5173/','http://localhost:4173/','https://localhost:5173/','https://localhost:4173/',"https://google.com/"]
 
 var corsOptions = {
   credentials: true,
   origin : whitelist,
   methods: 'GET, POST, PUT, DELETE',
-  allowedHeaders: 'Content-Type, Authorization',
+  allowedHeaders: 'Content-Type, Authorization, application/json',
 }
 
 //MIDDLEWARE//
@@ -50,10 +51,13 @@ var corsOptions = {
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors(corsOptions));
+console.log("checking cors");
+app.use(cors());
+
+app.options('*', cors(corsOptions));
 
 //ROUTES//
-
+console.log("routing");
 app.use('/users',require('./routes/users.routes'))
 app.use('/models',require('./routes/profiles.routes'))
 

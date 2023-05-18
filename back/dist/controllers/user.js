@@ -22,47 +22,36 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ping = exports.logout = exports.register = exports.login = void 0;
 const users_1 = require("../models/users");
 const Type = __importStar(require("../utils/types"));
 const token_1 = require("../utils/token");
-const node_fetch_1 = __importDefault(require("node-fetch"));
 // import { Tags } from "../models/tags";
 const attachToken = (payload, res) => {
+    console.log("setting cookie");
     const accessToken = (0, token_1.signJWT)(payload, process.env.ACCESS_TOKEN_TTL || '1d');
     // res.cookie("ASP_AT",accessToken,{maxAge:24*60*60*1000 ,sameSite:"none",secure:true})
     res.cookie("ASP_AT", accessToken, { maxAge: 24 * 60 * 60 * 1000, sameSite: "none", secure: true });
 };
 const login = async (req, res) => {
-    let { u_tag } = req.params;
-    let { token } = req.body;
-    if (!token) {
+    console.log('login in ');
+    let { email, service, token } = req.params;
+    if (!email || !service) {
         res.status(400).json({
             status: 400,
             message: Type.StatusTypes[400],
             content: {}
         });
     }
-    let FBresponse = await (0, node_fetch_1.default)(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`);
-    let data = await FBresponse.json();
-    console.log(`https://graph.facebook.com/v16.0/me?fields=id%2Cname%2Cemail%2Cpicture&access_token=${token}`);
-    if ("error" in data) {
-        res.status(400).json({
-            status: 100,
-            message: Type.StatusTypes[100],
-            content: data.error.message
-        });
-        return;
-    }
-    console.log(data);
     let user = new users_1.User();
-    let response = await user.login(data.email, token);
-    user.close();
-    if (response.status != 100) {
+    //@ts-ignore
+    let response = await user.login(email, {
+        token: token,
+        service: service == 'google' ? 'google' : service == 'facebook' ? 'facebook' : 'google'
+    });
+    if (response.status != 100 && response.status != 201) {
+        user.close();
         res.status(400).json({
             status: response.status,
             message: response.message,
@@ -70,13 +59,42 @@ const login = async (req, res) => {
         });
         return;
     }
+    if (response.status == 201) {
+        console.log(201);
+        if (service == "facebook") {
+            let reg_response = await user.register(email, 'facebook');
+            if (reg_response.status != 100) {
+                user.close();
+                res.status(400).json({
+                    status: reg_response.status,
+                    message: reg_response.message,
+                    content: reg_response.content
+                });
+                return;
+            }
+        }
+        else if (service == "google") {
+            let reg_response = await user.register(email, 'google');
+            if (reg_response.status != 100) {
+                user.close();
+                res.status(400).json({
+                    status: reg_response.status,
+                    message: reg_response.message,
+                    content: reg_response.content
+                });
+                return;
+            }
+        }
+    }
+    user.close();
     attachToken({
-        email: data.email,
+        email: email,
         session_id: response.content.session_id
     }, res);
     const accessToken = (0, token_1.signJWT)({
-        email: data.email,
-        session_id: response.content.session_id
+        email: email,
+        session_id: response.content.session_id,
+        service: service
     }, process.env.ACCESS_TOKEN_TTL || '1d');
     res.cookie("ASP_AT", accessToken, { maxAge: 24 * 60 * 60 * 1000, sameSite: "none" });
     res.status(200).json({
@@ -117,7 +135,9 @@ exports.register = register;
 const logout = async (req, res) => {
     // erase cookie 
     let user = new users_1.User();
-    let resp = await user.logout(req.params.email);
+    let resp = await user.logout(req.params.email, 'google');
+    if (req.params.service == "facebook")
+        resp = await user.logout(req.params.email, 'facebook');
     user.close();
     if (resp.status != 100) {
         res.status(400).json({
