@@ -69,7 +69,6 @@ To test the current version of Aspire :
     <a href="https://liolle.github.io/Aspire"> 
         <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px; height:550px; "/>
     </a>
-     
      <a href="https://liolle.github.io/Aspire"> 
         <img src="./images/Aspire_landPage_top.png " style="border-radius:4px; width:400px; height:400px; "/>
     </a>
