@@ -15,7 +15,7 @@ Aspire is a model agency app. It provides a platform for models to create profil
 
 - [x] As a user, I want to be able to create and edit my model profile, which will be used for castings and showcasing my portfolio.
 - [ ] As a user, I want to visit the subscription page to choose the desired subscription plan (Basic or Pro) for a duration of one year.
--[ ] As a user, I want to have a payment page where I can securely complete the checkout process and place an order for the selected subscription plan.
+- [ ] As a user, I want to have a payment page where I can securely complete the checkout process and place an order for the selected subscription plan.
 
 ## Technologies
 
@@ -49,6 +49,7 @@ Aspire is a model agency app. It provides a platform for models to create profil
     <img src="https://img.shields.io/badge/PlanetScale-000000.svg?style=for-the-badge&logo=PlanetScale&logoColor=white" style="border-radius:4px"/>
 </a> 
 
+
 ## Getting Started
 
 ### Steps
@@ -63,16 +64,16 @@ To test the current version of Aspire :
  
  ### Demo 
 
-<div class="flex-container" style="display: flex; flex-direction: row flex-wrap: wrap; justify-content: space-around; align-items: normal align-content: normal;">
+<div class="flex-container" style="display: flex; flex-direction: row justify-content: space-between;">
    <div class="flex-items">
     <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px; height:500px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; align-self: auto; order: 0;"/>
+        <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px; height:550px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; "/>
     </a>
    </div>
 
    <div class="flex-items">
    <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_landPage_top.png " style="border-radius:4px; width:400px; height:400px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; align-self: auto; order: 0;"/>
+        <img src="./images/Aspire_landPage_top.png " style="border-radius:4px; width:400px; height:400px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; "/>
     </a>
 
    </div>
