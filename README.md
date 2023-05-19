@@ -48,6 +48,7 @@ Aspire is a model agency app. It provides a platform for models to create profil
 <a href="https://planetscale.com/"> 
     <img src="https://img.shields.io/badge/PlanetScale-000000.svg?style=for-the-badge&logo=PlanetScale&logoColor=white" style="border-radius:4px"/>
 </a> 
+
 ## Getting Started
 
 ### Steps
