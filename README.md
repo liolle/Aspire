@@ -24,10 +24,10 @@ Aspire is a model agency app. It provides a platform for models to create profil
 <a href="https://fr.reactjs.org/"> 
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" style="border-radius:4px"/>
 </a>
-<a href="https://fr.reactjs.org/"> 
+<a href="https://redux.js.org"> 
     <img src="https://img.shields.io/badge/Redux-764ABC.svg?style=for-the-badge&logo=Redux&logoColor=white" style="border-radius:4px"/>
 </a>
-<a href="https://fr.reactjs.org/"> 
+<a href="https://tailwindcss.com"> 
     <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4.svg?style=for-the-badge&logo=Tailwind-CSS&logoColor=white" style="border-radius:4px"/>
 </a>
 
