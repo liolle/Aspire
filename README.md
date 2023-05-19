@@ -17,72 +17,6 @@ Aspire is a model agency app. It provides a platform for models to create profil
 - [ ] As a user, I want to visit the subscription page to choose the desired subscription plan (Basic or Pro) for a duration of one year.
 -[ ] As a user, I want to have a payment page where I can securely complete the checkout process and place an order for the selected subscription plan.
 
-## Getting Started
-
-### Steps
-
-To test the current version of Aspire :
- <ol>
-    <li>Visit the Aspire website: https://liolle.github.io/Aspire </li>
-    <li>Login with you google account  </li>
-    <li>Explore the different features and functionalities </li>
-    <li>Provide any feedback or bug reports by submitting an issue on the project's GitHub repository </li>
- </ol> 
- 
- ### Demo 
-<style>
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: normal;
-  align-content: normal;
-}
-
-.flex-items:nth-child(1) {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  order: 0;
-}
-
-.flex-items:nth-child(2) {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  order: 0;
-}
-
-#erd {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: normal;
-  align-content: normal;
-}
-
-</style>
-
-<div class="flex-container">
-   <div class="flex-items">
-   <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_landPage_top.png" style="border-radius:4px; width:300px"/>
-    </a>
-   </div>
-   <div class="flex-items">
-    <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px"/>
-    </a>
-   </div>
-</div>
-
-
 ## Technologies
 
 
@@ -114,11 +48,46 @@ To test the current version of Aspire :
 <a href="https://planetscale.com/"> 
     <img src="https://img.shields.io/badge/PlanetScale-000000.svg?style=for-the-badge&logo=PlanetScale&logoColor=white" style="border-radius:4px"/>
 </a> 
+## Getting Started
+
+### Steps
+
+To test the current version of Aspire :
+ <ol>
+    <li>Visit the Aspire website: https://liolle.github.io/Aspire </li>
+    <li>Login with you google account  </li>
+    <li>Explore the different features and functionalities </li>
+    <li>Provide any feedback or bug reports by submitting an issue on the project's GitHub repository </li>
+ </ol> 
+ 
+ ### Demo 
+
+<div class="flex-container" style="display: flex; flex-direction: row flex-wrap: wrap; justify-content: space-around; align-items: normal align-content: normal;">
+   <div class="flex-items">
+    <a href="https://liolle.github.io/Aspire"> 
+        <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px; height:500px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; align-self: auto; order: 0;"/>
+    </a>
+   </div>
+
+   <div class="flex-items">
+   <a href="https://liolle.github.io/Aspire"> 
+        <img src="./images/Aspire_landPage_top.png " style="border-radius:4px; width:400px; height:400px; display: block; flex-grow: 0; flex-shrink: 1;flex-basis: auto; align-self: auto; order: 0;"/>
+    </a>
+
+   </div>
+</div>
+
+
 
 #### ERD :
 
 <div id="erd" class="flex-items">
-    <img src="./images/erg.png" style="border-radius:4px width:600px"/>
+    <img src="./images/erd.png" style="border-radius:4px width:600px display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: normal;
+  align-content: normal;"/>
 </div>
 
 ## Documentation
