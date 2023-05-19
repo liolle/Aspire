@@ -64,13 +64,13 @@ To test the current version of Aspire :
  
  ### Demo 
 
-<div class="flex-container" style="display: flex; gap: 1; ">
+<div class="flex-container" style="display: flex; justify-content: space-around;">
    <div class="">
     <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_profilePage.png" style="border-radius:4px; width:300px; height:550px; "/>
+        <img src="./images/Aspire_profilePage.png" style="border-radius:9px; width:300px; height:550px; "/>
     </a>
      <a href="https://liolle.github.io/Aspire"> 
-        <img src="./images/Aspire_landPage_top.png " style="border-radius:4px; width:400px; height:400px; "/>
+        <img src="./images/Aspire_landPage_top.png " style="border-radius:9px; width:400px; height:400px; "/>
     </a>
    </div>
 
