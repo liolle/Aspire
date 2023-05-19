@@ -82,7 +82,7 @@ To test the current version of Aspire :
 #### ERD :
 
 <div id="erd" class="flex-items">
-    <img src="./images/erd.png" style="border-radius:4px width:600px display: flex;
+    <img src="./images/erd.png" style="border-radius:4px width:300px display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
