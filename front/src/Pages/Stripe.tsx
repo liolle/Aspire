@@ -1,0 +1,62 @@
+import NavBar from "../Components/Nav/NavB"
+
+import { useState } from 'react'
+import LoginPopup from '../Components/login/popUpLog'
+import MenuSlider from '../Components/Nav/MenuSlider'
+import ModelDisplay from '../Components/Cards/ModelDisplay'
+import { useSelector, useDispatch } from 'react-redux'
+import { ModelInfo } from '../utils/types'
+
+
+
+ const ProfilesPage = () => {
+
+    const [oppenPopup, setOppenPopup] = useState(false)
+    //@ts-ignore
+    const modelList:ModelInfo[] = useSelector(state => state.modelList.value)
+    const dispatch = useDispatch()
+    console.log(modelList);
+    
+    const closePopup = ()=>{
+
+        const section1 = document.querySelector("#sec1") as HTMLElement
+        const section2 = document.querySelector("#sec2") as HTMLElement
+        const section3 = document.querySelector("#sec3") as HTMLElement
+        const section4 = document.querySelector("#sec4") as HTMLElement
+        if(section1){section1.classList.remove("hidden")}
+        if(section2){section2.classList.remove("hidden")}
+        if(section3){section3.classList.remove("hidden")}
+        if(section4){section4.classList.remove("hidden")}
+
+        setOppenPopup(false)
+    }
+  
+    console.log(modelList);
+    
+
+    return (
+        <div className=' bg-neutral-100 '>
+            <section id='sec0' className=' h-screen flex flex-1 flex-col  '>
+
+                {
+                    oppenPopup && <div onClick={()=>closePopup()}
+                    className=" absolute w-full h-screen 
+                    flex justify-center items-center bg-[#25252550] overflow-hidden ">
+                        <LoginPopup setOppenPopup={setOppenPopup}/>
+                    </div>
+                }
+
+                <NavBar setOppenPopup={setOppenPopup}/>
+                <MenuSlider/>
+                <div className='text-4xl font-bold flex justify-center 
+                items-center flex-1 p-4'>
+                    
+                </div>
+            </section>
+        </div>
+    )
+}
+
+
+
+export default ProfilesPage
