@@ -1,15 +1,6 @@
 import React from'react-router-dom'
 import NavBar from "../Components/Nav/NavB"
-import model11 from '../images/model11.jpg'
 
-import model8 from '../images/model8.jpg'
-import model10 from '../images/model10.jpg'
-import model7 from '../images/model7.jpg'
-import back from '../images/back.png'
-import model4 from '../images/model4.jpg'
-import Footer from '../Components/Footer/Footer'
-import FAQ from '../Components/FAQ/Faq'
-import Team from '../Components/Team/Team'
 import { useState } from 'react'
 import LoginPopup from '../Components/login/popUpLog'
 import MenuSlider from '../Components/Nav/MenuSlider'

@@ -10,8 +10,7 @@ Aspire is a model agency app. It provides a platform for models to create profil
 - [x] As a user, I want to be able to create and edit my user profile, which will serve as the administrator profile for all other model profiles.
   [x] As a user, I want to be able to create an account using my Facebook, Google, or Apple credentials.
   - [x] Google
-  - [ ] Facebook
-  - [ ] Apple
+
 
 - [x] As a user, I want to be able to create and edit my model profile, which will be used for castings and showcasing my portfolio.
 - [ ] As a user, I want to visit the subscription page to choose the desired subscription plan (Basic or Pro) for a duration of one year.
@@ -90,6 +89,4 @@ To test the current version of Aspire :
   align-content: normal;"/>
 </div>
 
-## Documentation
 
---- Incoming ---

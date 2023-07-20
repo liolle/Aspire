@@ -31,7 +31,7 @@ const LoginPopup = ({setOppenPopup}:{setOppenPopup:React.Dispatch<React.SetState
         flex flex-col justify-center items-center p-6 gap-4 ">
 
             <div onClick={()=>closePopup()}
-            className=" absolute top-[-.55rem] right-[-.5rem] h-[2rem] w-[2rem] text-3xl
+            className=" absolute top-[-.55rem] right-[-.5rem] h-[3rem] w-[3rem] text-3xl
             rounded-full text-blk-300 bg-wht flex justify-center items-center
             hover:cursor-pointer ">
                 <RiCloseLine/>
