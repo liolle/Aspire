@@ -19,6 +19,8 @@ interface CInfo {
     const [oppenPopup, setOppenPopup] = useState(false)
     const [connectInfo,setConnectInfo] = useState <CInfo>()
     const navigate = useNavigate()
+    const DEVELOP = "http://localhost:3535"
+    const PROD = "https://apire.vercel.app"
 
     //@ts-ignore
     const connected = useSelector(state => state.connectStatus.value)
@@ -63,7 +65,7 @@ interface CInfo {
                     token : cInfo.access_token
                 })
             } as RequestInit
-            let response = await fetch(`https://apire.vercel.app/users/login`,options)
+            let response = await fetch(`${PROD}/users/login`,options)
             let data = await response.json() as { status: number, message: string, content: any }
             
             

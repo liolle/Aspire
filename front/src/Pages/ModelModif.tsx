@@ -22,7 +22,8 @@ import under_construction from "../images/under_construction.gif"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+const DEVELOP = "https://localhost:3535"
+const PROD = "https://apire.vercel.app"
 
  const ModelEdit = () => {
 
@@ -72,7 +73,7 @@ import 'react-toastify/dist/ReactToastify.css';
                 <NavBar setOppenPopup={setOppenPopup}/>
                 <MenuSlider/>
                 <div className='text-4xl font-bold flex
-                flex-1 p-2'>
+                    flex-1 p-2 h-[calc(100vh-80px)]'>
 
                     <div className=' rounded flex flex-1 overflow-hidden'>
                         <div className=' flex flex-col text-base flex-[0_1_100px] md:flex-[0_1_200px]  p-4 gap-4 text-center select-none'>
@@ -99,13 +100,11 @@ import 'react-toastify/dist/ReactToastify.css';
                         <div className=' flex flex-col flex-1 p-2 '>
                             <div className=' flex flex-1 p-2 select-none'>
                                 <div className=' bg-[#4eb5ed] flex flex-col text-base flex-1 border-2 rounded text-black justify-center items-center p-4'>
-                                    {/* <span>{location.href}</span>
-                                    <span>{"--"+location.hash}</span> */}
+                                    
                                     {
                                         <span >{"Model ID: "+model_id}</span>
                                     }
-                                    <img className=' bg-cover' src={under_construction} alt="Under construction" />
-                                    {/* <span>{location.search.replace('?','').split('&')}</span> */}
+                                    <img className=' max-h-[50vh] bg-cover' src={under_construction} alt="Under construction" />
                                 </div>
                             </div>
                             <div className=' flex flex-[0_1_200px] justify-center'>
@@ -173,7 +172,7 @@ const HeightSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/models/${id}/height/${value}`,option)
+        let response = await fetch(`${PROD}/models/${id}/height/${value}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         if (response.status == 200){
@@ -260,7 +259,7 @@ const WeightSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/models/${id}/weight/${value}`,option)
+        let response = await fetch(`${PROD}/models/${id}/weight/${value}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         if (response.status == 200){
@@ -347,7 +346,7 @@ const SkinColorSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/models/${id}/skinColor/${value.replace('#','')}`,option)
+        let response = await fetch(`${PROD}/models/${id}/skinColor/${value.replace('#','')}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
         
         if (response.status == 200){
@@ -430,7 +429,7 @@ const HairColorSector = ({id}:{id:number})=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/models/${id}/hairColor/${value.replace('#','')}`,option)
+        let response = await fetch(`${PROD}/models/${id}/hairColor/${value.replace('#','')}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
         
         if (response.status == 200){

@@ -9,11 +9,14 @@ function App() {
   //@ts-ignore
   const connected = useSelector(state => state.connectStatus.value)
   const dispatch = useDispatch()
+  const DEVELOP = "http://localhost:3535"
+  const PROD = "https://apire.vercel.app"
+
   //ADMIN_SPECIAL_KEY
   useEffect(()=>{
 
     const syncModel = async ()=>{
-      const authRoute = `https://apire.vercel.app/models/all`;
+      const authRoute = `${PROD}/models/all`;
       // const dispatch = useDispatch()
       let options = {
         method: 'GET',
@@ -35,7 +38,7 @@ function App() {
     }
 
       const connected = async ()=>{
-        const authRoute = `https://apire.vercel.app/users/auth`;
+        const authRoute = `${PROD}/users/auth`;
         let options = {
           method: 'POST',
           headers: {

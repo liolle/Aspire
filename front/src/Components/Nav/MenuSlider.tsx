@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { connect,disconnect } from "../../feature/user";
 import { GoogleButton } from "../buttons/google";
 
+const DEVELOP = "https://localhost:3535"
+const PROD = "https://apire.vercel.app"
+
 const MenuSlider = ()=>{
 
     const [bgMenu, setBgMenu] = useState("")
@@ -45,7 +48,7 @@ const MenuSlider = ()=>{
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/users/logout`,option)
+        let response = await fetch(`${PROD}/users/logout`,option)
         let data = await response.json() as { status: number, message: string, content: any }
     
         data.status == 100 && Logout()

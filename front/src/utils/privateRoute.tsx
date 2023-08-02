@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { sync } from '../feature/modelList';
 import { connect, disconnect } from '../feature/user';
 
-const DEVELOP = "https://apire.vercel.app"
-const PRODUCTION = "https://book-face-backend.vercel.app"
+const DEVELOP = "http://localhost:3535"
+const PROD = "https://apire.vercel.app"
 
 const PrivateRoute = () => {
   const [auth, setAuth] = useState<boolean | null>(null);
@@ -22,7 +22,7 @@ const PrivateRoute = () => {
   useEffect(()=>{
 
     const syncModel = async ()=>{
-      const authRoute = `https://apire.vercel.app/models/all`;
+      const authRoute = `${PROD}/models/all`;
       // const dispatch = useDispatch()
       let options = {
         method: 'GET',
@@ -44,7 +44,7 @@ const PrivateRoute = () => {
     }
 
       const connected = async ()=>{
-        const authRoute = `https://apire.vercel.app/users/auth`;
+        const authRoute = `${PROD}/users/auth`;
         let options = {
           method: 'POST',
           headers: {

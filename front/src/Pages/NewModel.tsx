@@ -22,6 +22,9 @@ import { ModelInfo } from '../utils/types'
 
  const NewModel = () => {
 
+    const DEVELOP = "http://localhost:3535"
+    const PROD = "https://apire.vercel.app"
+
     const [oppenPopup, setOppenPopup] = useState(false)
     //@ts-ignore
     const modelList:ModelInfo[] = useSelector(state => state.modelList.value)
@@ -58,7 +61,7 @@ import { ModelInfo } from '../utils/types'
         } 
     
         //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/models/add?email=${new_model_email.value}`,option)
+        let response = await fetch(`${PROD}/models/add?email=${new_model_email.value}`,option)
         let data = await response.json() as { status: number, message: string, content: any }
         data.status == 100 ? navigate(`/edit_model?id=${data.content}`) : console.log("Failed to create model");
         

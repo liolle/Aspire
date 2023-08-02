@@ -23,23 +23,23 @@ export function FacebookButton () {
     // const connectlink = `https://www.facebook.com/v16.0/dialog/oauth?client_id=3354425558205408&display=popup&response_type=token&redirect_uri=https://liolle.github.io/Aspire/#/login&scope=email`
 
  
-    const FBDisconnect = async ()=>{
-        let option = {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
-                'accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        } 
+    // const FBDisconnect = async ()=>{
+    //     let option = {
+    //         method: 'POST',
+    //         headers: {
+    //             'Authorization': `Bearer ${localStorage.getItem("ASP_AT") || ""}`,
+    //             'accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //         },
+    //     } 
     
-        //@ts-ignore
-        let response = await fetch(`https://apire.vercel.app/users/logout`,option)
-        let data = await response.json() as { status: number, message: string, content: any }
+    //     //@ts-ignore
+    //     let response = await fetch(`${PROD}/users/logout`,option)
+    //     let data = await response.json() as { status: number, message: string, content: any }
     
-        data.status == 100 && Logout()
+    //     data.status == 100 && Logout()
         
-    }
+    // }
 
     const connectSuccess = async (token ="")=>{
         dispatch(connect())

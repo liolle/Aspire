@@ -7,6 +7,7 @@ const router = express.Router();
 // import { login, auth } from '../controllers/login';
 // import verifyJwt from '../middlewares/auth';
 
+
 router.post('/register',register)
 router.post('/login',consumeToken,login)
 router.post('/logout',checkAuth,logout)
