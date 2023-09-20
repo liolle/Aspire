@@ -13,8 +13,7 @@ Aspire is a model agency app. It provides a platform for models to create profil
 
 
 - [x] As a user, I want to be able to create and edit my model profile, which will be used for castings and showcasing my portfolio.
-- [ ] As a user, I want to visit the subscription page to choose the desired subscription plan (Basic or Pro) for a duration of one year.
-- [ ] As a user, I want to have a payment page where I can securely complete the checkout process and place an order for the selected subscription plan.
+
 
 ## Technologies
 
